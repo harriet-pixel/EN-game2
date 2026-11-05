@@ -7,15 +7,16 @@ const dollUI=(await readFile('doll-ui.js','utf8')).replace(/^import .*?;\n/gm,''
 const app=(await readFile('app.js','utf8')).replace(/^import .*?;\n/gm,'');
 const gems=(await readFile('gems.js','utf8')).replace(/^export /gm,'');
 const gemUI=(await readFile('gem-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
-const js=`(()=>{\n${gems}\n${gemUI}\n${core}\n${paper}\n${dollUI}\n${app}\n})();`;
+const sceneUI=(await readFile('scene-ui.js','utf8')).replace(/^export /gm,'');
+const js=`(()=>{\n${sceneUI}\n${gems}\n${gemUI}\n${core}\n${paper}\n${dollUI}\n${app}\n})();`;
 const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
 html=html.replace('<span id="app-version">開發版</span>',`<span id="app-version">版本 ${hash.slice(0,8)}</span>`);await writeFile('dist/index.html',html);await writeFile(`dist/app.${hash}.js`,js);await writeFile(`dist/style.${cssHash}.css`,css);await copyFile('scene.svg','dist/scene.svg');await writeFile('dist/.nojekyll','');
-for(const asset of ['forest.png','hero.png','stone.png','human.png','base-body.png'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
+for(const asset of ['forest.png','hero.png','stone.png','human.png','base-body.png','forest.webp','stone.webp','base-body.webp'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
 // Keep the old experiment URL available, with its original isolated database.
 await mkdir('dist/fantasy-test',{recursive:true});
 const previewJs=js.replace("indexedDB.open('mosslight',1)","indexedDB.open('mosslight-fantasy-preview',1)");const previewHash=createHash('sha256').update(previewJs).digest('hex').slice(0,12);
-let preview=html.replace(`href="style.${cssHash}.css"`,`href="../style.${cssHash}.css"`).replace(`src="app.${hash}.js"`,`src="app.${previewHash}.js"`).replace('</header>','</header><div class="test-ribbon"><b>✦ 美術測試版</b><span>測試資料獨立儲存</span><a href="../">前往正式版 ↗</a></div>').replace(`版本 ${hash.slice(0,8)}`,`美術測試版 ${previewHash.slice(0,8)}`);
+let preview=html.replace('href="assets/forest.webp"','href="../assets/forest.webp"').replace(`href="style.${cssHash}.css"`,`href="../style.${cssHash}.css"`).replace(`src="app.${hash}.js"`,`src="app.${previewHash}.js"`).replace('</header>','</header><div class="test-ribbon"><b>✦ 美術測試版</b><span>測試資料獨立儲存</span><a href="../">前往正式版 ↗</a></div>').replace(`版本 ${hash.slice(0,8)}`,`美術測試版 ${previewHash.slice(0,8)}`);
 await writeFile('dist/fantasy-test/index.html',preview);await writeFile(`dist/fantasy-test/app.${previewHash}.js`,previewJs);
 console.log('Built fantasy production site:',hash,'and independent /fantasy-test/');
