@@ -155,3 +155,31 @@ html{scrollbar-gutter:stable}
 @keyframes grounded-walk{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
 @media(max-width:1000px){.player-hud{top:20px;left:20px;gap:12px}}
 @media(max-width:700px){.player-hud{top:16px;left:12px;width:calc(100% - 24px);gap:8px}.player-hud .player-card{flex:1;min-width:0}.player-hud .player-info{width:auto;min-width:0}.player-hud .portrait{flex-shrink:0}.player-hud .scene-dice .dice{width:76px;height:84px;font-size:72px}#movement-status{font-size:calc(21px * var(--font-scale,1))}}
+/* Fixed top HUD and a distinct world layer for the portal. */
+.player-hud{right:25px;justify-content:space-between}
+.player-hud .scene-dice .dice{width:var(--hud-height,96px);height:var(--hud-height,96px);font-size:calc(var(--hud-height,96px) * .9)}
+#character>.bubble{font-size:calc(27px * var(--font-scale,1));padding:18px 30px;border-radius:15px;max-width:min(660px,calc(100vw - 48px));line-height:1.6}
+#character>.bubble:after{bottom:-15px;border-width:15px}
+#character>.bubble.bubble-side:after{left:-18px;border-width:18px;border-left:0}
+#portal-layer{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.portal-marker{position:absolute;width:calc(185px * var(--player-scale,1));height:calc(185px * var(--player-scale,1));top:calc(82% + 4px - 185px * var(--player-scale,1));transform:translateX(-50%);object-fit:contain;filter:drop-shadow(0 0 12px #80efff80);image-rendering:pixelated}
+.stone.portal>span{display:none}
+.portal-card,.portal-card.revealed{border:3px solid transparent!important;background:linear-gradient(#313347,#202c3c) padding-box,conic-gradient(#fa879e,#ffca7c,#fbef9b,#9ae8bc,#8fd5ff,#b3a3f6,#eda1ed,#fa879e) border-box!important}
+body[data-appearance=light] .portal-card,body[data-appearance=light] .portal-card.revealed{background:linear-gradient(#fff7e7,#e8dfd3) padding-box,conic-gradient(#fa879e,#ffca7c,#fbef9b,#9ae8bc,#8fd5ff,#b3a3f6,#eda1ed,#fa879e) border-box!important}
+.portal-card:hover:not(:disabled){transform:none}
+.reward-accessory-preview{position:relative;width:min(140px,90%);height:auto;aspect-ratio:5/6;overflow:hidden;margin:8px auto;padding:0}
+.portal-card.revealed .reward-accessory-preview .inventory-accessory-file{width:100%;height:100%;max-height:none;object-fit:contain}
+.portal-card.revealed .reward-accessory-preview.common-crop-frame>img{position:absolute;max-width:none;max-height:none;object-fit:fill;margin:0}
+#reward-equip-question p{color:inherit}#reward-equip-question button{margin:5px}#reward-equip-status{min-height:1.5em}
+.gem-assets-settings{margin-top:28px;padding:22px;border:1px solid var(--line);border-radius:12px}.gem-assets-settings p{line-height:1.8;font-size:calc(12px * var(--font-scale,1))}.gem-assets-settings button{margin:6px 6px 6px 0}
+#gem-assets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;max-height:420px;overflow:auto;margin-top:14px}.gem-asset-row{padding:12px;border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;align-items:center;gap:9px}.gem-asset-row img{width:80px;height:90px;object-fit:contain}.gem-asset-row span{font-size:calc(12px * var(--font-scale,1))}
+#gem-discovery{width:min(680px,94vw);height:390px;text-align:center;overflow:hidden;background:radial-gradient(ellipse at center,#5d5691,#1d2946 75%);color:#fff0b9;border-color:#c4a9e7}
+.mystery-orb{font-size:100px;color:#b5eeff;text-shadow:0 0 35px #a7d5ff;animation:mystery-pulse .8s ease-in-out infinite alternate;margin:25px auto}
+.mystery-words{font-size:calc(42px * var(--font-scale,1));font-weight:800;white-space:nowrap;text-shadow:0 2px 8px #122b45}
+.mystery-words span{display:inline-block;animation:mystery-letter 1s ease-in-out infinite;animation-delay:calc(var(--letter) * .065s)}
+#play-discovery-audio{position:absolute;bottom:15px;left:50%;translate:-50% 0}
+@keyframes mystery-letter{0%,100%{translate:0 0;color:#ffe7b0}50%{translate:0 -13px;color:#b2eaff}}
+@keyframes mystery-pulse{from{scale:.85;opacity:.5}to{scale:1.12;opacity:1}}
+@media(max-width:1000px){.player-hud{right:20px}}
+@media(max-width:700px){.player-hud{right:12px;width:auto}.player-hud .player-card{flex:0 1 auto;max-width:calc(100% - 92px)}#character>.bubble{font-size:calc(24px * var(--font-scale,1));padding:18px 30px}.portal-marker{width:calc(135px * var(--player-scale,1));height:calc(135px * var(--player-scale,1));top:calc(82% + 2px - 135px * var(--player-scale,1))}.mystery-words{font-size:calc(27px * var(--font-scale,1))}#gem-discovery{height:340px}.reward-accessory-preview{width:90px}}
+@media(prefers-reduced-motion:reduce){.mystery-words span,.mystery-orb{animation:none}}
