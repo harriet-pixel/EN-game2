@@ -124,5 +124,5 @@ export function createDollUI(context){
  async function decideRewardEquip(equip){const pending=doll().pendingReward,choice=pending?.choices[pending.selected];if(!choice||choice.kind!=='item')return;const item=doll().assets.find(a=>a.id===choice.itemId);if(!item)return;if(equip)doll().equipped[item.category]=item.id;pending.equipDecision=equip?'yes':'no';renderGame();renderReward();await save()}
  Q('#reward-equip-yes').onclick=()=>decideRewardEquip(true);Q('#reward-equip-no').onclick=()=>decideRewardEquip(false);
  Q('#portal-reward').addEventListener('cancel',e=>e.preventDefault());Q('#reward-continue').onclick=async()=>{if(!doll().pendingReward||doll().pendingReward.selected===null||Q('#reward-continue').disabled)return;Q('#reward-continue').disabled=true;await finishPortal();if(Q('#portal-reward').open)Q('#portal-reward').close();await context.resumeRewards?.()};
- window.addEventListener('resize',()=>{QA('.doll-composite').forEach(fitComposite);updateBubble()});return {renderLive,renderWardrobe,openEditor,canLeave,openReward,populateDropSettings,readDropSettings};
+ window.addEventListener('resize',()=>{QA('.doll-composite').forEach(fitComposite);updateBubble()});return {renderLive,renderWardrobe,openEditor,canLeave,openReward,populateDropSettings,readDropSettings,renderSettingsPreview:()=>composite(Q('#settings-character-preview'))};
 }

@@ -27,3 +27,5 @@ export function currentScene(state){const i=state.sceneIndex%scenes.length;retur
 export function normalizePlayerScale(value){return Number.isFinite(Number(value))?Math.max(.5,Math.min(2,Number(value))):1}
 
 export function normalizeFontScale(value){return Number.isFinite(value)?Math.max(.8,Math.min(1.5,value)):1}
+
+export function clearStars(state){state.stars=0}
