@@ -499,3 +499,10 @@ body[data-appearance=light] #gem-detail .close{color:#b27b9a}
 .portal-card{height:400px;padding:18px 12px}
 .portal-card .reward-accessory-preview{width:100%;max-width:300px;flex-shrink:0;margin:12px auto;border-radius:7px}
 @media(max-width:760px){#portal-reward{padding:24px 14px}.portal-card{height:300px;padding:14px 8px}.portal-cards{gap:8px}}
+/* Movement follows the adventurer's head, above the character layer. */
+#movement-status{translate:-50% 0;z-index:8;max-width:calc(100% - 24px)}
+.answer-reward-range>div{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.answer-reward-range input{width:100%}
+#settings-dialogue input[type=checkbox]{width:28px;height:28px;min-width:28px;vertical-align:middle;accent-color:#ac799d;cursor:pointer}
+.dialogue-voice-toggle{display:flex!important;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+@media(max-width:600px){.answer-reward-range>div{grid-template-columns:1fr}}
