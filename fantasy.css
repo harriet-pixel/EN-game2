@@ -140,3 +140,18 @@ html{scrollbar-gutter:stable}
 .accessory-drop-row output{font-size:calc(11px * var(--font-scale,1));line-height:1.7;font-variant-numeric:tabular-nums}
 #accessory-drop-error{color:#efa8aa}
 @media(max-width:700px){.accessory-drop-row{grid-template-columns:42px minmax(0,1fr) 80px}.accessory-drop-row img{width:42px;height:54px}.accessory-drop-row input{width:80px}.accessory-drop-row output{grid-column:2/-1}}
+.drop-category-icon{font-size:calc(30px * var(--font-scale,1))!important;text-align:center;color:#dbc186}
+.accessory-drop-row strong,.accessory-drop-row small{display:block}.accessory-drop-row small{font-size:calc(10px * var(--font-scale,1));margin-top:5px;color:var(--muted)}
+.player-hud{position:absolute;top:23px;left:25px;display:flex;align-items:center;gap:18px;z-index:5}
+.player-hud .player-card{position:relative;top:auto;left:auto;flex-shrink:0}
+.player-hud .scene-dice{position:relative;left:auto;top:auto;transform:none;flex-shrink:0}
+.scene.intro-active .player-hud .scene-dice{opacity:1;pointer-events:auto}
+.scene-dice .dice{color:var(--dice-color,#f4dfa7)}
+#movement-status{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:4;max-width:90%;text-align:center;font-size:calc(27px * var(--font-scale,1));font-weight:700;letter-spacing:3px;color:var(--dice-color,#f4dfa7);text-shadow:0 2px 5px #172538,0 0 12px #172538;pointer-events:none}
+#character>.shadow{scale:var(--player-scale,1);transform-origin:center}
+#character.walking>.bubble{visibility:hidden}
+#character.walking>.hero{animation:grounded-walk .2s infinite alternate}
+.camera-panning #character>.hero{animation:none}
+@keyframes grounded-walk{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
+@media(max-width:1000px){.player-hud{top:20px;left:20px;gap:12px}}
+@media(max-width:700px){.player-hud{top:16px;left:12px;width:calc(100% - 24px);gap:8px}.player-hud .player-card{flex:1;min-width:0}.player-hud .player-info{width:auto;min-width:0}.player-hud .portrait{flex-shrink:0}.player-hud .scene-dice .dice{width:76px;height:84px;font-size:72px}#movement-status{font-size:calc(21px * var(--font-scale,1))}}
