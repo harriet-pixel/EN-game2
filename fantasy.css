@@ -433,3 +433,20 @@ body[data-appearance=light] .settings-dice-preview{background:#fff2f9}
 .overview-link{text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .2s,box-shadow .2s}
 .overview-link:hover,.overview-link:focus-visible{border-color:var(--gold);box-shadow:0 0 0 2px #b99bdc33}
 body[data-appearance=light] .overview-link:hover,body[data-appearance=light] .overview-link:focus-visible{border-color:#cb8bb1;box-shadow:0 0 0 2px #e8bbd533}
+/* One shared adventure preview replaces the isolated size samples. */
+.adventure-appearance-preview{margin-top:24px;min-width:0}
+.adventure-appearance-preview>h3{margin:0 0 8px}
+.adventure-appearance-preview>p{margin:0 0 16px}
+#appearance-preview-viewport{position:relative;width:100%;min-height:200px;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+#appearance-preview-frame{position:absolute;top:0;left:0;border:0;transform-origin:top left;pointer-events:none}
+#settings-display .dice-scale-settings{margin-top:20px}
+.appearance-live-layout{display:grid;grid-template-columns:minmax(190px,230px) minmax(0,1fr);gap:22px;align-items:start}
+.appearance-live-controls{min-width:0}
+.appearance-live-controls .size-settings-grid{display:block}
+.appearance-live-controls .size-settings-grid fieldset{margin:0 0 16px!important}
+.appearance-live-controls fieldset{padding:14px}
+.appearance-live-controls fieldset p{font-size:calc(11px * var(--font-scale,1));line-height:1.6}
+#settings-display .appearance-live-controls .dice-scale-settings{margin-top:0}
+#settings-display .adventure-appearance-preview{margin-top:0;position:sticky;top:20px}
+@media(max-width:1250px){.appearance-live-layout{grid-template-columns:1fr}.appearance-live-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.appearance-live-controls .appearance-options{grid-column:1/-1}.appearance-live-controls .size-settings-grid{display:contents}.appearance-live-controls .size-settings-grid fieldset{margin:0!important}#settings-display .adventure-appearance-preview{position:static}}
+@media(max-width:800px){.appearance-live-controls{grid-template-columns:1fr}.appearance-live-controls .appearance-options{grid-column:auto}}
