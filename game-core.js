@@ -4,7 +4,7 @@ export const scenes = [
  {name:'月影秘境',subtitle:'星光步道',english:'THE MOONLIT SANCTUARY',description:'循著星光，走向未知的遠方。',theme:'moon'}
 ];
 export function stoneType(position){const n=((position%10)+10)%10;return n===3?'chance':n===7?'fate':'question'}
-export function windowStart(position){return Math.floor(position/10)*10}
+export function windowStart(position){return Math.floor(position/11)*11}
 export function activeQuestions(state){return state.questions.filter(q=>!state.disabledFolders.includes(q.folder||''))}
 export function readyPortal(state){return state.sceneAnswers>=state.targets[state.sceneIndex%scenes.length]}
 export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)state.stars+=amount}
