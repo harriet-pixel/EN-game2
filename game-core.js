@@ -10,7 +10,7 @@ export function readyPortal(state){return state.sceneAnswers>=state.sceneTarget}
 export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)state.stars+=amount}
 export function completeQuestion(state){const oldLevel=Math.floor(state.xp/100);grantReward(state,state.reward);state.sceneAnswers++;return {portalReady:readyPortal(state),leveled:Math.floor(state.xp/100)>oldLevel}}
 export function enterPortal(state){if(!readyPortal(state))return false;state.sceneIndex++;state.sceneAnswers=0;return true}
-export function resetProgress(state){state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0}
+export function resetProgress(state){state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll)state.doll.pendingReward=null}
 
 export const characters=[
  {id:'human',name:'白裙旅人',description:'黑髮・人類女生・白色短袖長裙',file:'human.png',label:'預設造型'},
