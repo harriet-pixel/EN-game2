@@ -3,7 +3,7 @@ import {dollCategories,normalizeDollTransform,equipDollItem,claimPortalCard,scal
 export function layoutCharacterScene(root=document){const Q=s=>root.querySelector(s);if(!Q('#character>.hero'))return;
   const hero=Q('#character>.hero'),parent=hero.parentElement,bubble=Q('#character>.bubble');Q('.player-hud').style.setProperty('--hud-height',Q('.player-card').offsetHeight+'px');
   parent.style.setProperty('--hero-height',hero.offsetHeight+'px');parent.style.setProperty('--hero-bottom',(parent.clientHeight-hero.offsetTop-hero.offsetHeight)+'px');
-  bubble.style.removeProperty('left');bubble.style.removeProperty('bottom');bubble.style.removeProperty('translate');bubble.classList.remove('bubble-side');if(!hero.offsetHeight)return;const footFraction=1350/1448,shadow=Q('#character>.shadow');hero.style.transformOrigin=`50% ${footFraction*100}%`;hero.style.translate=`0px ${shadow.offsetTop+shadow.offsetHeight/2-hero.offsetTop-hero.offsetHeight*footFraction}px`;const parentBox=parent.getBoundingClientRect(),heroBox=hero.getBoundingClientRect();bubble.style.bottom=(parentBox.bottom-heroBox.top+14)+'px';
+  bubble.style.removeProperty('left');bubble.style.removeProperty('bottom');bubble.style.removeProperty('translate');bubble.classList.remove('bubble-side');if(!hero.offsetHeight)return;const shadow=Q('#character>.shadow'),stone=Q('#path .stone.current')||Q('#path .stone');hero.style.transformOrigin='50% 100%';hero.style.translate='0px 0px';const parentBox=parent.getBoundingClientRect();if(stone){const top=stone.getBoundingClientRect().top;hero.style.translate='0px '+(top-hero.getBoundingClientRect().bottom)+'px';shadow.style.bottom='auto';shadow.style.top=(top-parentBox.top-shadow.offsetHeight/2)+'px'}const heroBox=hero.getBoundingClientRect();bubble.style.bottom=(parentBox.bottom-heroBox.top+14)+'px';
   const scene=Q('.scene').getBoundingClientRect(),hud=Q('.player-card').getBoundingClientRect(),body=hero.getBoundingClientRect(),box=bubble.getBoundingClientRect(),origin=parent.getBoundingClientRect();
   if(box.left<hud.right&&box.right>hud.left&&box.top<hud.bottom&&box.bottom>hud.top){
    const x=Math.max(scene.left+12,Math.min(body.right+12,scene.right-box.width-12)),y=Math.min(Math.max(body.top+12,hud.bottom+12),scene.bottom-box.height-12);
@@ -54,6 +54,7 @@ export function createDollUI(context){
  function rewardAccessoryPreview(item){const stage=document.createElement('div');stage.className='accessory-thumb reward-accessory-preview';dollVisualLayers(item).forEach(part=>{const img=new Image();img.src=part.image;img.alt=item.name;img.className='inventory-accessory-file';stage.append(img)});if(doll().previewMode==='common'&&item.category!=='pets')accessoryFrame(doll().assets.filter(a=>a.category===item.category)).then(frame=>{if(stage.isConnected)paintCommonThumb(stage,item,frame)});return stage}
 
  Q('#wardrobe-preview-width').oninput=e=>{doll().previewWidth=Number(e.target.value);renderWardrobe();clearTimeout(widthTimer);widthTimer=setTimeout(save,250)};
+ Q('#wardrobe-lock-overlay').onchange=e=>{doll().lockedOverlay=e.target.checked;renderWardrobe();save()};
  QA('[name="wardrobe-preview-mode"]').forEach(input=>input.onchange=()=>{doll().previewMode=input.value;renderWardrobe();save()});
  function renderWardrobe(){
   Q('#wardrobe-name').textContent=state().playerName;
@@ -62,14 +63,14 @@ export function createDollUI(context){
   const tabs=Q('#doll-category-tabs');tabs.replaceChildren();
   dollCategories.forEach(c=>{const owned=doll().assets.filter(a=>a.category===c.id&&doll().unlocked.includes(a.id)).length;const button=text('button',`${owned?'':'🔒 '}${c.name} ${owned}`,category===c.id?'selected':'');button.dataset.dollCategory=c.id;button.setAttribute('aria-pressed',String(category===c.id));button.onclick=()=>{category=c.id;renderWardrobe()};tabs.append(button)});
   const token=++wardrobeRender,list=Q('#paper-items'),all=wardrobeItems(doll(),category);list.replaceChildren();list.style.setProperty('--preview-width',doll().previewWidth+'px');
-  Q('#wardrobe-preview-width').value=doll().previewWidth;Q('#wardrobe-preview-width-label').textContent=doll().previewWidth+'px';QA('[name="wardrobe-preview-mode"]').forEach(input=>input.checked=input.value===doll().previewMode);
+  Q('#wardrobe-lock-overlay').checked=doll().lockedOverlay===true;Q('#wardrobe-preview-width').value=doll().previewWidth;Q('#wardrobe-preview-width-label').textContent=doll().previewWidth+'px';QA('[name="wardrobe-preview-mode"]').forEach(input=>input.checked=input.value===doll().previewMode);
   for(const owned of [true,false]){
    const items=all.filter(item=>doll().unlocked.includes(item.id)===owned),section=document.createElement('section');section.className='wardrobe-ownership-section';section.dataset.ownership=owned?'owned':'locked';section.append(text('h2',(owned?'已獲得':'未獲得')+' ('+items.length+')'));const grid=document.createElement('div');grid.className='wardrobe-item-grid';section.append(grid);list.append(section);
    if(!items.length)grid.append(text('p',owned?'尚未獲得此類配件，完成場景挑戰即可解鎖。':'目前沒有未獲得的配件。','empty-accessories'));
    items.forEach(item=>{
-    const equipped=doll().equipped[item.category]===item.id,card=document.createElement('article');card.className='paper-item'+(owned?'':' locked')+(equipped?' equipped':'');card.dataset.itemId=item.id;
+    const equipped=doll().equipped[item.category]===item.id,card=document.createElement('article');card.className='paper-item'+(owned?'':' locked'+(doll().lockedOverlay?' with-lock-overlay':''))+(equipped?' equipped':'');card.dataset.itemId=item.id;
     const stage=document.createElement('div');stage.className='accessory-thumb';const sources=dollVisualLayers(item);if(sources.length>1)stage.classList.add('legacy-hair-files');sources.forEach(source=>{const img=new Image();img.src=source.image;img.alt=item.name;img.className='inventory-accessory-file';img.loading='lazy';img.decoding='async';stage.append(img)});
-    card.append(stage,text('span',item.isDefault?'✦ 初始預設':owned?'已獲得':'尚未解鎖','accessory-status'));
+    const number=owned?doll().unlocked.indexOf(item.id)+1:null;if(number)card.dataset.acquisitionNumber=number;card.append(stage,text('span',owned?'#'+String(number).padStart(3,'0')+' · '+(item.isDefault?'初始預設':'已獲得'):'尚未解鎖','accessory-status'));
     if(owned){const mandatoryDefault=equipped&&item.isDefault&&mandatoryDollCategories.includes(item.category);const button=text('button',mandatoryDefault?'預設穿戴中':equipped?(mandatoryDollCategories.includes(item.category)&&doll().assets.some(a=>a.category===item.category&&a.isDefault)?'換回預設':'卸下配件'):'穿戴','primary');button.disabled=mandatoryDefault;button.dataset.action='wear';button.onclick=()=>{if(equipDollItem(doll(),item.id)){renderGame();renderWardrobe();save()}};const actions=document.createElement('div');actions.className='accessory-card-actions';actions.append(button);card.append(actions)}
     grid.append(card);
    });

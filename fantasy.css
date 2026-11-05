@@ -465,3 +465,31 @@ body[data-appearance] #character>.bubble.bubble-side:after{border-top-color:tran
 .dialogue-audio-actions{display:flex;gap:8px;flex-wrap:wrap}
 body[data-appearance=light] .dialogue-setting-card{background:#fff5fa}
 @media(max-width:1100px){#dialogue-settings-list{grid-template-columns:1fr}}
+/* Float the portal without changing its horizontal anchor or layer. */
+.portal-marker{animation:portal-hover 2.6s ease-in-out infinite}
+@keyframes portal-hover{0%,100%{translate:0 -3px}50%{translate:0 -15px}}
+@media(prefers-reduced-motion:reduce){.portal-marker{animation:none}}
+#movement-status,#gem-discovery .mystery-words{font-size:clamp(25px,4.5vw,64px)}
+#character.walking>.hero{animation:none}
+/* Optional locked-item overlay, separate from the original artwork. */
+#wardrobe .paper-item.with-lock-overlay .accessory-thumb:after{content:'';position:absolute;inset:0;background:#73737366;z-index:100;pointer-events:none}
+#wardrobe .paper-item.with-lock-overlay .accessory-thumb img{filter:grayscale(1)}
+#wardrobe .accessory-status{display:block;width:100%;text-align:center;font-variant-numeric:tabular-nums}
+.locked-overlay-option{grid-column:1/-1}
+/* Gem controls share the dressing room's sakura palette. */
+body[data-appearance=light] #gem-filters button{background:#fff4fa;color:#b27b9a;border-color:#e5bbd4}
+body[data-appearance=light] #gem-filters button.selected{background:#f2cde2;color:#a16188;border-color:#cf8db4}
+body[data-appearance=light] .gem-summary{background:linear-gradient(115deg,#fff9fd,#f8ddec);border-color:#e5bbd4}
+body[data-appearance=light] .gem-summary span,body[data-appearance=light] .gem-toolbar>label{color:#b1849d}
+body[data-appearance=light] .gem-summary strong{color:#b76e98}
+body[data-appearance=light] .gem-progress-track{background:#efcfdf}
+body[data-appearance=light] .gem-progress-track i{background:linear-gradient(90deg,#f1b8d8,#cf82ac)}
+body[data-appearance=light] #gem-search{background:#fff7fc;color:#965475;border-color:#e5bbd4}
+body[data-appearance=light] .gem-card{background:#fff;color:#a16188;border-color:#e5bbd4}
+body[data-appearance=light] .gem-card.collected{border-color:#cf8db4}
+body[data-appearance=light] .gem-card small,body[data-appearance=light] .gem-card.undiscovered strong,body[data-appearance=light] .gem-number{color:#b1849d}
+body[data-appearance=light] #gem-detail{background:#fff5fa;color:#965475;border-color:#e5bbd4}
+body[data-appearance=light] #gem-detail-name{color:#b76e98}
+body[data-appearance=light] #gem-detail-rarity,body[data-appearance=light] #gem-detail-quantity,body[data-appearance=light] #gem-detail-label{color:#b1849d}
+body[data-appearance=light] #gem-detail .primary{background:linear-gradient(#dba4c1,#ad7999);color:#fff5fa;border-color:#c58da9;box-shadow:0 3px 0 #d6a1ba}
+body[data-appearance=light] #gem-detail .close{color:#b27b9a}
