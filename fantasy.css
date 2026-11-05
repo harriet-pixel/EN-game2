@@ -272,3 +272,74 @@ body[data-appearance=light] .overview-metric{background:linear-gradient(135deg,#
 @keyframes mystery-wander{0%{translate:-3px 8px;rotate:-7deg;color:#ffdf9a}50%{translate:3px -5px;rotate:3deg;color:#b3edff}100%{translate:-1px -13px;rotate:8deg;color:#edc4ff}}
 @media(prefers-reduced-motion:reduce){#gem-discovery .mystery-words span{animation:none}}
 .gem-color-heading button[data-delete-gem-color]{margin-left:auto;font-size:calc(12px * var(--font-scale,1));padding:8px 12px}
+@font-face{font-family:'JF Open Huninn';src:url('assets/fonts/jf-openhuninn.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
+body{font-family:'JF Open Huninn','Noto Sans TC',sans-serif}
+/* Triple the die without shifting the player card down. */
+.player-hud{align-items:flex-start}
+.player-hud .scene-dice,.player-hud .scene-dice .dice{width:calc(var(--hud-height,96px) * 3);height:calc(var(--hud-height,96px) * 3)}
+.player-hud .scene-dice .dice{font-size:calc(var(--hud-height,96px) * 2.7)}
+.auto-expand-option{display:flex!important;align-items:center;gap:10px;margin-top:22px}
+.auto-expand-option input{width:auto!important}
+#settings-unsaved-status,#gem-settings-save-status{font-size:calc(12px * var(--font-scale,1));color:var(--muted)}
+#gem-settings-dialog{width:min(1180px,96vw);max-height:94vh;overflow:auto;padding:30px}
+#gem-settings-dialog .settings-section{padding:0;border:0;background:transparent;margin-bottom:0}
+#gem-settings-dialog h3,#gem-settings-dialog legend{font-size:calc(17px * var(--font-scale,1));font-weight:600}
+#gem-settings-dialog p,#gem-settings-dialog label{font-size:calc(13px * var(--font-scale,1));line-height:1.8}
+.gem-settings-shortcuts{display:flex;gap:12px;flex-wrap:wrap;height:auto;min-height:0;margin:20px 0 24px}
+.gem-settings-shortcuts a{color:var(--ink);font-size:calc(12px * var(--font-scale,1));text-decoration:none;padding:8px 12px;border:1px solid var(--line);border-radius:6px}
+.gem-settings-savebar{position:sticky;bottom:-30px;display:flex;justify-content:space-between;gap:15px;align-items:center;padding:18px 0;background:#283044;border-top:1px solid var(--line);z-index:3;margin-top:24px}
+#gem-settings-rates,#gem-audio-settings{scroll-margin-top:20px}
+#wardrobe-settings-dialog{width:min(660px,94vw)}
+#wardrobe-settings-dialog .wardrobe-view-options{border:0;padding:0;display:grid;margin-top:24px}
+#wardrobe-settings-dialog p{font-size:calc(13px * var(--font-scale,1));line-height:1.8}
+.wardrobe-summary{position:relative;padding:25px 30px;gap:26px;border:2px solid transparent;background:linear-gradient(115deg,#443956,#28374b) padding-box,linear-gradient(100deg,#e4b5d9,#aaa4e9,#a1d9e8,#e9c1dc) border-box;box-shadow:0 8px 25px #100c201f}
+.wardrobe-summary>strong{font-size:calc(30px * var(--font-scale,1));font-weight:700;letter-spacing:2px;color:#ffe6f6;text-shadow:0 0 16px #e7a4db55}
+.wardrobe-summary>span{font-size:calc(21px * var(--font-scale,1));font-weight:600;color:#dec7ef;letter-spacing:1px}
+.wardrobe-summary>strong:before{content:'✦ ';color:#e5c0e8}
+/* Sakura uses pink accents throughout the UI; uploaded art retains its own colors. */
+body[data-appearance=light]{--gold:#d995bc;--dice-color:#df83b5}
+body[data-appearance=light] .game-frame:before,body[data-appearance=light] .game-frame:after,body[data-appearance=light] h1 span,body[data-appearance=light] .panel-icon,body[data-appearance=light] .tiny-star,body[data-appearance=light] .book-icon,body[data-appearance=light] footer b{color:#d58aaf;text-shadow:0 0 10px #efb7d5}
+body[data-appearance=light] .player-card{background:linear-gradient(135deg,#fff2faed,#efd0e3ed);border-color:#d995bc;box-shadow:0 0 0 3px #f9ddea,0 0 0 4px #d6a0bc,0 5px 15px #a162831f}
+body[data-appearance=light] .portrait,body[data-appearance=light] .mini-avatar{border-color:#e8a8ca;background:radial-gradient(circle,#ffe7f5,#dba7c5);box-shadow:0 0 0 2px #d798ba}
+body[data-appearance=light] .player-info>div:first-child,body[data-appearance=light] .player-info>div:first-child span{color:#945272}
+body[data-appearance=light] .xp-track{border-color:#cf8db3;background:#ffedf7;box-shadow:0 0 0 1px #e6b6d0}
+body[data-appearance=light] .xp-track i{background:linear-gradient(#f1b8d8,#d384b0);box-shadow:0 0 8px #e8abd0}
+body[data-appearance=light] .xp-text{color:#a67290}
+body[data-appearance=light] .overview-star,body[data-appearance=light] .reward-star,body[data-appearance=light] .reward-category,body[data-appearance=light] .card-rune,body[data-appearance=light] .event-symbol,body[data-appearance=light] .drop-category-icon{color:#d17da9!important}
+body[data-appearance=light] .overview-rainbow-icon{background-image:linear-gradient(135deg,#f9cce4,#df91bb,#edb0d4,#c876a7)}
+body[data-appearance=light] .overview-progress i{background:linear-gradient(90deg,#f6c6df,#e494bc,#ce77a5,#f3b8d8)}
+body[data-appearance=light] .bubble{background:#fff0f7!important;border-color:#d593b2!important;color:#965475!important;box-shadow:0 3px 12px #b16c932b}
+body[data-appearance=light] #character>.bubble:after{border-top-color:#fff0f7}
+body[data-appearance=light] #character>.bubble.bubble-side:after{border-right-color:#fff0f7;border-top-color:transparent}
+body[data-appearance=light] .stone span{color:#ffe9f7!important;text-shadow:0 0 5px #fff1fa,0 0 12px #f2a8d0}
+body[data-appearance=light] .stone.chance span,body[data-appearance=light] .stone.fate span{color:#ffdbf1!important;text-shadow:0 0 8px #fff4fb,0 0 12px #eb97c9}
+body[data-appearance=light] .scene-title h2,body[data-appearance=light] .scene-title>span,body[data-appearance=light] .scene-title p,body[data-appearance=light] .scene-footer{color:#fff1fa}
+body[data-appearance=light] .wardrobe-summary{background:linear-gradient(115deg,#fff9fd,#f8ddec) padding-box,linear-gradient(100deg,#edbfd9,#d998be,#f6d0e6) border-box;border-color:transparent;box-shadow:0 8px 25px #d491b31a}
+body[data-appearance=light] .wardrobe-summary>strong{color:#b76e98;text-shadow:0 0 14px #f1c0de}
+body[data-appearance=light] .wardrobe-summary>strong:before,body[data-appearance=light] .wardrobe-summary>span{color:#c780a9}
+body[data-appearance=light] .wardrobe-summary>small{color:#b1849d}
+body[data-appearance=light] .paper-item,body[data-appearance=light] .accessory-thumb,body[data-appearance=light] .accessory-file-card,body[data-appearance=light] .bulk-file-card{background:#fff!important}
+body[data-appearance=light] .paper-item.equipped{border-color:#cf82ad}
+body[data-appearance=light] .doll-category-tabs button,body[data-appearance=light] .editor-category-picker button{color:#b27b9a;background:#fff4fa;border-color:#e5bbd4}
+body[data-appearance=light] .doll-category-tabs button.selected,body[data-appearance=light] .editor-category-picker button.selected{background:#f2cde2;color:#a16188;border-color:#cf8db4}
+body[data-appearance=light] .folder span,body[data-appearance=light] .new-folder,body[data-appearance=light] .question-card-content small,body[data-appearance=light] .question-card-content button{color:#b47898}
+body[data-appearance=light] .question-image{background:#fff4fa}body[data-appearance=light] .question-image.demo{background:linear-gradient(130deg,#fce8f3,#efd0e2)}
+body[data-appearance=light] .gem-settings-savebar{background:#fff3f9}
+body[data-appearance=light] #gem-detail[data-rarity=common]{border-color:#e7bed7}
+body[data-appearance=light] #gem-detail[data-rarity=rare]{border-color:#d99bc4;box-shadow:0 0 0 3px #f1cee3,0 0 35px #e6b5d24a;background:radial-gradient(ellipse at top,#fff4fb,#f1d6e6)}
+body[data-appearance=light] #gem-detail[data-rarity=legendary]{border-color:#e8a6cd;outline-color:#c47ca6;box-shadow:0 0 0 8px #fae5f1,0 0 55px #e9acd08a;background:radial-gradient(ellipse at top,#fff9fd,#efd0e3);color:#a45f88}
+body[data-appearance=light] #gem-detail[data-rarity=legendary]:before,body[data-appearance=light] #gem-detail[data-rarity=legendary]:after,body[data-appearance=light] #gem-detail[data-rarity=legendary] #gem-detail-name,body[data-appearance=light] #gem-detail[data-rarity=legendary] #gem-detail-rarity{color:#c279a5;text-shadow:0 0 12px #f5d1e7}
+body[data-appearance=light] #gem-detail[data-rarity=legendary] #gem-detail-image{filter:drop-shadow(0 0 20px #e8afd0)}
+body[data-appearance=light] .gem-card.rarity-legendary.collected{border-color:#ca82ae;background:radial-gradient(ellipse at top,#fff5fb,#f0ccdf);box-shadow:0 0 15px #e6adce33}
+body[data-appearance=light] .gem-card.rarity-rare.collected{border-color:#dda1c6;background:radial-gradient(ellipse at top,#fff8fc,#f4deec)}
+body[data-appearance=light] .portal-card,body[data-appearance=light] .portal-card.revealed{background:linear-gradient(#fff8fc,#f4dbe9) padding-box,conic-gradient(#e8a5ca,#ffdced,#d28bb5,#f4c0df,#e2a2c9) border-box!important;color:#ac7593}
+body[data-appearance=light] .portal-card:before,body[data-appearance=light] .portal-card:after{color:#d798bb}
+body[data-appearance=light] #star-reward{background:radial-gradient(ellipse at top,#fff1fa,#e6acd1);border-color:#d991bb;color:#a56089}
+body[data-appearance=light] #star-reward h2,body[data-appearance=light] #star-reward p,body[data-appearance=light] #star-reward .eyebrow{color:#a15a83}
+body[data-appearance=light] .earned-stars,body[data-appearance=light] .reward-sparkles{color:#c16e9f;text-shadow:0 2px #f5c5e1,0 0 20px #efb7d8}
+body[data-appearance=light] #level-up-dialog{background:radial-gradient(ellipse at top,#fff0fa,#e6b5d3);border-color:#d999bf;color:#a35d88}
+body[data-appearance=light] .level-banner>span,body[data-appearance=light] .level-banner>strong,body[data-appearance=light] .level-banner p{color:#b26995}
+body[data-appearance=light] .level-confetti i{background:#efa6ce}body[data-appearance=light] .level-confetti i:nth-child(2n){background:#d987b8}body[data-appearance=light] .level-confetti i:nth-child(3n){background:#f6d5e8}
+body[data-appearance=light] #gem-discovery .mystery-words span{animation-name:mystery-wander-pink;text-shadow:0 3px 6px #9c668e}
+@keyframes mystery-wander-pink{0%{translate:-3px 8px;rotate:-7deg;color:#f8c6e2}50%{translate:3px -5px;rotate:3deg;color:#ce81ad}100%{translate:-1px -13px;rotate:8deg;color:#efabd1}}
+@media(max-width:700px){.player-hud .scene-dice,.player-hud .scene-dice .dice{width:40vw;height:40vw}.player-hud .scene-dice .dice{font-size:36vw}.player-hud .player-card{max-width:calc(100% - 40vw - 8px)}.wardrobe-summary{padding:20px;gap:12px}.wardrobe-summary>strong{font-size:calc(25px * var(--font-scale,1))}.wardrobe-summary>span{font-size:calc(17px * var(--font-scale,1))}#gem-settings-dialog{padding:20px}.gem-settings-savebar{bottom:-20px}.gem-settings-savebar{flex-wrap:wrap}}

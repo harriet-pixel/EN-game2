@@ -48,7 +48,7 @@ export function createDollUI(context){
  async function accessoryFrame(all){const rects=await Promise.all(all.flatMap(dollVisualLayers).map(async part=>{const b=await alphaBounds(part.image),t=normalizeDollTransform(part);return {x:(t.x+t.width*b.x)*10,y:(t.y+t.height*b.y)*14,width:t.width*b.width*10,height:t.height*b.height*14}}));return commonDollFrame(rects)}
  function paintCommonThumb(stage,item,frame){stage.replaceChildren();stage.classList.add('common-crop-frame');dollVisualLayers(item).forEach(part=>{const t=normalizeDollTransform(part),img=new Image();img.src=part.image;img.alt=item.name;img.decoding='async';Object.assign(img.style,{left:((t.x*10-frame.x)/frame.width*100)+'%',top:((t.y*14-frame.y)/frame.height*100)+'%',width:(t.width*10/frame.width*100)+'%',height:(t.height*14/frame.height*100)+'%',zIndex:String(t.z+1000)});stage.append(img)})}
  async function cropWardrobe(all,token){const frame=await accessoryFrame(all);if(token!==wardrobeRender)return;Q('#paper-items').querySelectorAll('.paper-item').forEach(card=>{const item=all.find(a=>a.id===card.dataset.itemId);paintCommonThumb(card.querySelector('.accessory-thumb'),item,frame)})}
- function rewardAccessoryPreview(item){const stage=document.createElement('div');stage.className='accessory-thumb reward-accessory-preview';dollVisualLayers(item).forEach(part=>{const img=new Image();img.src=part.image;img.alt=item.name;img.className='inventory-accessory-file';stage.append(img)});if(doll().previewMode==='common')accessoryFrame(doll().assets.filter(a=>a.category===item.category)).then(frame=>{if(stage.isConnected)paintCommonThumb(stage,item,frame)});return stage}
+ function rewardAccessoryPreview(item){const stage=document.createElement('div');stage.className='accessory-thumb reward-accessory-preview';dollVisualLayers(item).forEach(part=>{const img=new Image();img.src=part.image;img.alt=item.name;img.className='inventory-accessory-file';stage.append(img)});if(doll().previewMode==='common'&&item.category!=='pets')accessoryFrame(doll().assets.filter(a=>a.category===item.category)).then(frame=>{if(stage.isConnected)paintCommonThumb(stage,item,frame)});return stage}
 
  Q('#wardrobe-preview-width').oninput=e=>{doll().previewWidth=Number(e.target.value);renderWardrobe();clearTimeout(widthTimer);widthTimer=setTimeout(save,250)};
  QA('[name="wardrobe-preview-mode"]').forEach(input=>input.onchange=()=>{doll().previewMode=input.value;renderWardrobe();save()});
@@ -71,7 +71,7 @@ export function createDollUI(context){
     grid.append(card);
    });
   }
-  if(doll().previewMode==='common')cropWardrobe(all,token);
+  if(doll().previewMode==='common'&&category!=='pets')cropWardrobe(all,token);
  }
  let bulkSource=null,bulkSelection=new Set();
  function bulkVisible(){const term=Q('#bulk-apply-search').value.trim();return doll().assets.filter(item=>item.id!==bulkSource?.id&&(!term||(item.name+' '+dollCategories.find(c=>c.id===item.category).name).includes(term)))}
@@ -103,7 +103,7 @@ export function createDollUI(context){
  Q('#open-accessory-picker').onclick=openAccessoryPicker;Q('#close-accessory-picker').onclick=()=>Q('#accessory-picker-dialog').close();
  for(const [id,delta] of [['accessory-previous',-1],['accessory-next',1]])Q('#'+id).onclick=()=>{const items=sequence(),i=items.findIndex(a=>a.id===draft?.id);if(items[i+delta])chooseAccessory(items[i+delta].id)};
  Q('#accessory-default').onchange=()=>{if(draft){draft.isDefault=Q('#accessory-default').checked;dirty=true;updateEditorPreview()}};
- Q('#apply-doll-defaults').onclick=()=>{applyDollDefaults(doll());renderGame();renderWardrobe();save();toast('已套用初始預設造型')};
+
  Q('#accessory-name').oninput=()=>{if(draft){draft.name=Q('#accessory-name').value;dirty=true}};
  for(const key of ['x','y','z'])Q('#doll-'+key).oninput=()=>{if(!draft)return;const value=Q('#doll-'+key).valueAsNumber;if(!Number.isFinite(value))return;draft={...draft,...normalizeDollTransform({...draft,[key]:value})};dirty=true;updateEditorPreview()};
  for(const [id,delta] of [['layer-up',1],['layer-down',-1]])Q('#'+id).onclick=()=>{if(!draft)return;draft.z=Math.max(-50,Math.min(50,draft.z+delta));dirty=true;syncInputs();updateEditorPreview()};
