@@ -343,3 +343,64 @@ body[data-appearance=light] .level-confetti i{background:#efa6ce}body[data-appea
 body[data-appearance=light] #gem-discovery .mystery-words span{animation-name:mystery-wander-pink;text-shadow:0 3px 6px #9c668e}
 @keyframes mystery-wander-pink{0%{translate:-3px 8px;rotate:-7deg;color:#f8c6e2}50%{translate:3px -5px;rotate:3deg;color:#ce81ad}100%{translate:-1px -13px;rotate:8deg;color:#efabd1}}
 @media(max-width:700px){.player-hud .scene-dice,.player-hud .scene-dice .dice{width:40vw;height:40vw}.player-hud .scene-dice .dice{font-size:36vw}.player-hud .player-card{max-width:calc(100% - 40vw - 8px)}.wardrobe-summary{padding:20px;gap:12px}.wardrobe-summary>strong{font-size:calc(25px * var(--font-scale,1))}.wardrobe-summary>span{font-size:calc(17px * var(--font-scale,1))}#gem-settings-dialog{padding:20px}.gem-settings-savebar{bottom:-20px}.gem-settings-savebar{flex-wrap:wrap}}
+
+/* The primary navigation stays on the left on every page. */
+:root{--sidebar-width:220px}
+header.site-sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-width);height:100dvh;min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex-wrap:nowrap;gap:32px;padding:30px 18px 22px;border-right:1px solid var(--line);border-bottom:0;z-index:20;overflow-y:auto}
+.site-sidebar .brand{gap:10px;font-size:19px;letter-spacing:1px;flex-shrink:0}
+.site-sidebar .brand-icon{width:36px;height:40px;flex-shrink:0}
+.site-sidebar .brand small{font-size:7px;letter-spacing:1.7px}
+#site-navigation{height:auto;display:flex;flex-direction:column;gap:9px}
+#site-navigation .nav{justify-content:flex-start;min-height:54px;padding:12px;border:1px solid transparent;border-radius:9px;gap:10px;white-space:nowrap;font-size:calc(14px * var(--font-scale,1))}
+#site-navigation .nav.active{background:#ac8ac51c;border-color:#b79bcb55}
+#site-navigation .nav.active:after{inset:12px auto 12px -5px;width:3px;height:auto;border-radius:3px;background:#c5a0dc}
+#site-navigation .nav b{margin-left:auto}
+.site-sidebar .header-right{display:flex;margin-top:auto;flex-wrap:wrap;gap:14px;justify-content:center}
+.site-sidebar .saved{display:block;width:100%;text-align:center;font-size:11px}
+body>main{width:calc(100% - var(--sidebar-width));max-width:1600px;margin:0 0 0 var(--sidebar-width);padding:30px 28px}
+body>footer{margin-left:var(--sidebar-width);padding-left:28px;padding-right:28px}
+body[data-appearance=light] #site-navigation .nav.active{background:#f7e0ee;border-color:#e8b5d2}
+body[data-appearance=light] #site-navigation .nav.active:after{background:#cf8bb2}
+.settings-navigation,.wardrobe-preview{top:24px}
+.library-tabs{display:flex;gap:12px;margin:0 0 24px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.library-tabs button{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:12px 22px}
+.library-tabs button[aria-selected=true]{background:#655778;color:#fff0fb;border-color:#bd9bce}
+body[data-appearance=light] .library-tabs button[aria-selected=true]{background:#f3d2e5;color:#a2638a;border-color:#dba2c3}
+#library-events{max-width:1100px}
+.event-settings-savebar{position:sticky;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px;background:var(--bg);border:1px solid var(--line);border-radius:10px;z-index:2}
+#event-settings-status{color:var(--muted);font-size:calc(13px * var(--font-scale,1))}
+/* Level and experience join the collection strip. */
+.adventure-overview{grid-template-columns:minmax(220px,1.4fr) repeat(4,minmax(0,1fr));gap:12px}
+.overview-metric{padding:15px 14px;gap:10px}
+.overview-player{flex-direction:column;align-items:stretch;justify-content:center;gap:9px}
+.overview-player #level{display:block;font-size:calc(36px * var(--font-scale,1));font-weight:900;line-height:1.1;letter-spacing:1px;white-space:nowrap;background:linear-gradient(110deg,#ffb3d8,#ffd191,#fbf4aa,#a9eed6,#9fc9ff,#c3a9fb,#ffa7d5);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 6px #c995e84d)}
+.overview-experience{width:100%;flex:none!important}
+.overview-experience .xp-track{width:100%;height:11px;margin:0}
+.overview-experience .xp-text{display:flex;justify-content:space-between;gap:8px;margin-top:6px;white-space:nowrap}
+.overview-metric .xp-text span{font-size:calc(10px * var(--font-scale,1))}
+body[data-appearance=light] .overview-player #level{background-image:linear-gradient(110deg,#ce498c,#bf7528,#927a12,#348c74,#4d7db8,#975ec5,#c34e94);filter:none}
+/* Only the large portrait and name remain over the scene. */
+.player-hud .player-card,body[data-appearance=light] .player-hud .player-card{display:flex;align-items:center;gap:22px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;max-width:calc(100% - 290px)}
+.player-hud .portrait{width:106px;height:106px;flex-shrink:0;border-radius:50%}
+.player-hud #player-name{max-width:280px;font-size:calc(30px * var(--font-scale,1));line-height:1.3;color:#fff1db;text-shadow:0 2px 5px #17252b,0 0 14px #242239;font-weight:700}
+body[data-appearance=light] .player-hud #player-name{color:#fff1fa;text-shadow:0 2px 5px #6b3d61,0 0 14px #7f466b}
+.player-hud .portrait .hero{width:155px;height:216px;left:-26px;top:2px}
+/* Lift feet and their shadow together onto the stone's top surface. */
+#character{margin-top:-8px}
+@media(max-width:1200px){:root{--sidebar-width:190px}.site-sidebar .brand{font-size:16px}.site-sidebar .brand small{font-size:6px}.adventure-overview{grid-template-columns:repeat(4,minmax(0,1fr))}.overview-player{grid-column:1/-1;flex-direction:row;align-items:center;gap:24px}.overview-player .overview-experience{max-width:320px}.player-hud #player-name{font-size:calc(26px * var(--font-scale,1))}.player-hud .player-card{gap:15px}.player-hud .portrait{width:92px;height:92px}}
+@media(max-width:760px){:root{--sidebar-width:76px}header.site-sidebar{padding:20px 8px;gap:24px}.site-sidebar .brand{justify-content:center}.site-sidebar .brand>span:last-child{display:none}#site-navigation .nav{justify-content:center;font-size:23px;padding:10px 6px}#site-navigation .nav>span,#site-navigation .nav>b{display:none}.site-sidebar .saved,.site-sidebar .mini-avatar{display:none}.site-sidebar .header-right{display:flex}body>main{padding:24px 14px}body>footer{padding:16px;font-size:9px}.adventure-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-player{grid-column:1/-1}.overview-player #level{font-size:calc(30px * var(--font-scale,1))}.overview-metric{padding:12px;gap:8px}.player-hud .player-card{max-width:calc(100% - 120px);gap:10px;align-items:center}.player-hud .portrait{width:64px;height:64px}.player-hud .portrait .hero{width:94px;height:131px;left:-17px}.player-hud #player-name{font-size:calc(22px * var(--font-scale,1));max-width:130px}.player-hud .scene-dice,.player-hud .scene-dice .dice{width:115px;height:115px}.player-hud .scene-dice .dice{font-size:104px}.library-tabs button{padding:12px}.event-settings-savebar{flex-wrap:wrap}}
+/* Keep a one-character inset between the die and the scene frame. */
+.player-hud{top:1em;right:1em;width:auto}
+
+/* Vector faces have no font padding, so the visible icon obeys the inset. */
+.player-hud .scene-dice .dice{font-size:0!important;position:relative}
+.player-hud .scene-dice .dice:before{content:"";position:absolute;inset:0;background:currentColor;mask:var(--dice-face) center/contain no-repeat;-webkit-mask:var(--dice-face) center/contain no-repeat}
+.dice[data-face="1"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+.dice[data-face="2"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+.dice[data-face="3"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+.dice[data-face="4"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+.dice[data-face="5"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2272%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+.dice[data-face="6"]{--dice-face:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2292%22%20height%3D%2292%22%20rx%3D%227%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%228%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2225%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2225%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2250%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2250%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2275%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%2275%22%20r%3D%227%22%20fill%3D%22white%22/%3E%3C/svg%3E")}
+body>.test-ribbon{margin-left:var(--sidebar-width)}
+.overview-metric strong{white-space:nowrap}
+@media(max-width:1200px){.overview-metric strong{font-size:calc(17px * var(--font-scale,1))}.overview-rainbow-icon,.overview-star{font-size:30px}}
