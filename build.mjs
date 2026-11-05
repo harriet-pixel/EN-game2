@@ -1,6 +1,7 @@
 import {mkdir,copyFile,readFile,writeFile,rm} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 await rm('dist',{recursive:true,force:true});await mkdir('dist/assets',{recursive:true});
+const libraryCore=(await readFile('library-core.js','utf8')).replace(/^export /gm,'');
 const core=(await readFile('game-core.js','utf8')).replace(/^export /gm,'');
 const paper=(await readFile('paper-doll.js','utf8')).replace(/^export /gm,'');
 const dollUI=(await readFile('doll-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
@@ -10,7 +11,7 @@ const gemUI=(await readFile('gem-ui.js','utf8')).replace(/^import .*?;\n/gm,'').
 const sceneUI=(await readFile('scene-ui.js','utf8')).replace(/^export /gm,'');
 const backupFormat=(await readFile('backup-format.js','utf8')).replace(/^export /gm,'');
 const backupUI=(await readFile('backup-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
-const js=`(()=>{\n${backupFormat}\n${backupUI}\n${sceneUI}\n${gems}\n${gemUI}\n${core}\n${paper}\n${dollUI}\n${app}\n})();`;
+const js=`(()=>{\n${backupFormat}\n${backupUI}\n${sceneUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${paper}\n${dollUI}\n${app}\n})();`;
 const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
