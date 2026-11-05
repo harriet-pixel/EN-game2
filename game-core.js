@@ -12,7 +12,7 @@ export function readyPortal(state){return state.sceneAnswers>=state.sceneTarget}
 export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)state.stars+=amount}
 export function completeQuestion(state){const oldLevel=Math.floor(state.xp/100);grantReward(state,state.reward);state.sceneAnswers++;return {portalReady:readyPortal(state),leveled:Math.floor(state.xp/100)>oldLevel}}
 export function enterPortal(state){if(!readyPortal(state))return false;state.sceneIndex++;state.sceneAnswers=0;return true}
-export function resetProgress(state){state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll)state.doll.pendingReward=null}
+export function resetProgress(state){state.avatar='';state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll)state.doll.pendingReward=null}
 
 export const characters=[
  {id:'human',name:'白裙旅人',description:'黑髮・人類女生・白色短袖長裙',file:'human.png',label:'預設造型'},
@@ -23,3 +23,5 @@ export function getCharacter(id){return characters.find(c=>c.id===id)||character
 export function createSceneConfigs(){return scenes.map(scene=>({name:scene.name,background:null}))}
 export function normalizeSceneConfigs(value){return scenes.map((scene,i)=>{const c=Array.isArray(value)?value[i]:null;return {name:typeof c?.name==='string'&&c.name.trim()?c.name.trim().slice(0,40):scene.name,background:typeof c?.background==='string'&&/^data:image\/(png|webp|jpeg);base64,/i.test(c.background)?c.background:null}})}
 export function currentScene(state){const i=state.sceneIndex%scenes.length;return {...scenes[i],...state.sceneConfigs?.[i]}}
+
+export function normalizePlayerScale(value){return Number.isFinite(Number(value))?Math.max(.5,Math.min(2,Number(value))):1}
