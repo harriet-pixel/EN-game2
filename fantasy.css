@@ -430,3 +430,6 @@ body[data-appearance] .reward-accessory-preview{background:#f5e9c9!important}
 .settings-dice-preview .dice:before{content:'';position:absolute;inset:0;background:currentColor;mask:var(--dice-face) center/contain no-repeat;-webkit-mask:var(--dice-face) center/contain no-repeat}
 body[data-appearance=light] .settings-dice-preview{background:#fff2f9}
 @media(max-width:760px){.player-hud{--dice-base:115px}}
+.overview-link{text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.overview-link:hover,.overview-link:focus-visible{border-color:var(--gold);box-shadow:0 0 0 2px #b99bdc33}
+body[data-appearance=light] .overview-link:hover,body[data-appearance=light] .overview-link:focus-visible{border-color:#cb8bb1;box-shadow:0 0 0 2px #e8bbd533}
