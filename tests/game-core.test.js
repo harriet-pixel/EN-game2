@@ -1,0 +1,7 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {stoneType,windowStart,completeQuestion,resetProgress} from '../game-core.js';
+test('path continues past old endpoint with overlapping windows',()=>{assert.equal(windowStart(11),10);assert.equal(windowStart(1201),1200);for(let p=0;p<1000;p++)assert.ok(p>=windowStart(p)&&p<windowStart(p)+12)});
+test('path includes predictable question, chance and fate icons',()=>{assert.equal(stoneType(3),'chance');assert.equal(stoneType(7),'fate');assert.equal(stoneType(13),'chance');assert.equal(stoneType(12),'question')});
+test('answer thresholds vary by scene and repeat after three scenes',()=>{let s={xp:75,sceneIndex:0,sceneAnswers:1,targets:[2,1,3]};assert.deepEqual(completeQuestion(s),{advanced:true,leveled:true});assert.equal(s.sceneIndex,1);assert.equal(s.sceneAnswers,0);completeQuestion(s);assert.equal(s.sceneIndex,2);completeQuestion(s);completeQuestion(s);assert.equal(s.sceneIndex,2);completeQuestion(s);assert.equal(s.sceneIndex,3);completeQuestion(s);assert.equal(s.sceneIndex,3);completeQuestion(s);assert.equal(s.sceneIndex,4)});
+test('reset preserves library, avatar and configured thresholds',()=>{let s={position:100,xp:200,sceneIndex:3,sceneAnswers:2,questions:[{id:'keep'}],avatar:'image',targets:[2,4,6]};resetProgress(s);assert.equal(s.position,0);assert.equal(s.xp,0);assert.equal(s.sceneIndex,0);assert.equal(s.sceneAnswers,0);assert.equal(s.avatar,'image');assert.deepEqual(s.questions,[{id:'keep'}]);assert.deepEqual(s.targets,[2,4,6])});
