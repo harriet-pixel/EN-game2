@@ -25,3 +25,5 @@ export function normalizeSceneConfigs(value){return scenes.map((scene,i)=>{const
 export function currentScene(state){const i=state.sceneIndex%scenes.length;return {...scenes[i],...state.sceneConfigs?.[i]}}
 
 export function normalizePlayerScale(value){return Number.isFinite(Number(value))?Math.max(.5,Math.min(2,Number(value))):1}
+
+export function normalizeFontScale(value){return Number.isFinite(value)?Math.max(.8,Math.min(1.5,value)):1}
