@@ -26,7 +26,7 @@ function renderGame(){
 }
 function assetUrl(file){return new URL('assets/'+file,document.querySelector('link[rel=stylesheet]').href).href}
 function renderWardrobe(){dollUI.renderWardrobe()}
-function showPage(page){if(dollUI&&!dollUI.canLeave(page))return;$$('.page').forEach(p=>p.classList.toggle('hidden',p.id!==page));$$('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='library')renderLibrary();if(page==='settings-page')populateSettings();if(page==='wardrobe')renderWardrobe();if(page==='doll-editor')dollUI.openEditor()}
+function showPage(page){if(dollUI&&!dollUI.canLeave(page))return;$$('.page').forEach(p=>p.classList.toggle('hidden',p.id!==page));$$('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='adventure')dollUI.renderLive();if(page==='library')renderLibrary();if(page==='settings-page')populateSettings();if(page==='wardrobe')renderWardrobe();if(page==='doll-editor')dollUI.openEditor()}
 $$('.nav').forEach(b=>b.onclick=()=>showPage(b.dataset.page));$('#open-library').onclick=()=>showPage('library');$('#help').onclick=()=>$('#info').showModal();$$('[data-close]').forEach(b=>b.onclick=()=>$('#'+b.dataset.close).close());
 function showSceneIntro(){clearTimeout(introTimer);$('#scene').classList.add('intro-active');$('.scene-title').setAttribute('aria-hidden','false');introTimer=setTimeout(hideSceneIntro,2600)}
 function hideSceneIntro(){clearTimeout(introTimer);$('#scene').classList.remove('intro-active');$('.scene-title').setAttribute('aria-hidden','true')}
