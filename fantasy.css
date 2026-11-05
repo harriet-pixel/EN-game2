@@ -243,3 +243,32 @@ body[data-appearance=light] input[type=range],body[data-appearance=light] input[
 body[data-appearance=light] #gem-atlas-dialog input{background:#fff7fc;color:#765769;border-color:#e5bfd1}
 body[data-appearance=light] #apply-gem-atlas{box-shadow:0 0 0 7px #fff3f8}
 body[data-appearance=light] #gem-detail[data-rarity=legendary] #gem-detail-rarity{color:#9a714a}
+/* Square doll viewports fit the complete outfit, including pets outside the body. */
+#doll-edit-stage{width:min(100%,500px);height:auto!important;aspect-ratio:1!important;max-width:none}
+#wardrobe-doll-preview{width:min(100%,calc(100dvh - 80px));height:auto!important;aspect-ratio:1!important;margin-inline:auto;max-width:none}
+#wardrobe .accessory-thumb,.reward-accessory-preview{aspect-ratio:1!important;height:auto!important}
+#wardrobe .accessory-thumb img{max-width:none;max-height:none}
+#settings-character-preview{width:126px;height:126px}
+.settings-role-preview,.settings-font-preview{width:min(100%,280px);height:auto!important;aspect-ratio:1;margin-inline:auto}
+.accessory-file-card img,.bulk-file-card img{aspect-ratio:1;height:auto;object-fit:contain}
+.adventure-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.overview-metric{display:flex;gap:16px;align-items:center;background:#252b3b;border:1px solid var(--line);padding:18px 20px;border-radius:10px;min-width:0}
+.overview-metric>div{min-width:0;flex:1}.overview-metric span:not(.overview-rainbow-icon):not(.overview-star){display:block;font-size:calc(12px * var(--font-scale,1));color:var(--muted)}
+.overview-metric strong{display:block;font-size:calc(23px * var(--font-scale,1));font-weight:600;font-variant-numeric:tabular-nums;margin-top:5px}.overview-metric small{display:block;font-size:calc(9px * var(--font-scale,1));color:var(--muted);margin-top:5px}
+.overview-rainbow-icon{font-size:38px;background:linear-gradient(135deg,#fc91bf,#ffe58a,#94e7cb,#8bd7ff,#d0a2f4);background-clip:text;-webkit-background-clip:text;color:transparent}
+.overview-star{font-size:34px;color:#e5c885}.overview-progress{height:5px;border-radius:8px;background:#111a29;margin-top:10px;overflow:hidden}.overview-progress i{display:block;height:100%;background:linear-gradient(90deg,#ff8dbe,#ffe4a5,#a0e6cd,#9ecfff,#c5a4ef)}
+.event-editor-row{padding:16px;border:1px solid var(--line);border-radius:9px;margin:14px 0;display:grid;gap:12px}.event-editor-row>input,.event-editor-row textarea,.event-editor-row label input{width:100%;margin:0}.event-editor-row textarea{resize:vertical}.event-editor-row button{justify-self:end}.question-history-settings>small{display:block;margin-top:12px}
+.library-history-tools{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;display:flex;flex-direction:column;gap:9px;font-size:calc(11px * var(--font-scale,1))}.library-history-tools button{font-size:calc(11px * var(--font-scale,1));padding:8px}
+#event-description{white-space:pre-wrap;overflow-wrap:anywhere}
+.atlas-boundary-controls,.atlas-grid-size-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}.atlas-grid-size-controls input{width:100%;padding:9px}.atlas-boundary-controls label,.atlas-grid-size-controls label{min-width:0;font-size:calc(12px * var(--font-scale,1))}
+#atlas-grid-overlay{pointer-events:auto;touch-action:none}#atlas-grid-overlay rect,#atlas-grid-overlay text{pointer-events:none}.atlas-drag-line{stroke:#ffdf8d;stroke-width:9;stroke-opacity:.4;pointer-events:stroke;cursor:col-resize}.atlas-drag-line[data-atlas-axis=y]{cursor:row-resize}.atlas-drag-line:hover{stroke-opacity:.9}
+body[data-appearance=light] .overview-metric{background:linear-gradient(135deg,#fffafd,#f7e2ec);border-color:#e5c4d3}body[data-appearance=light] .overview-progress{background:#efdae6}
+@media(max-width:1000px){.adventure-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-metric{padding:14px}}
+@media(max-width:600px){.atlas-boundary-controls,.atlas-grid-size-controls{gap:6px}.atlas-boundary-controls input,.atlas-grid-size-controls input{padding:7px 3px}.overview-metric{gap:10px}.overview-metric strong{font-size:calc(18px * var(--font-scale,1))}.overview-rainbow-icon,.overview-star{font-size:27px}}
+/* Discovery is pure animated text over the game, without a window or backdrop. */
+#gem-discovery.gem-discovery-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;outline:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;color:#fff1b9}
+#gem-discovery .mystery-words{font-size:clamp(25px,4.5vw,64px);font-weight:900;color:#fff0b1;text-shadow:0 3px 5px #20314e,0 0 18px #19304acc;cursor:pointer}
+#gem-discovery .mystery-words span{animation:mystery-wander .65s ease-in-out infinite alternate;animation-delay:calc(var(--letter) * -.073s)}
+@keyframes mystery-wander{0%{translate:-3px 8px;rotate:-7deg;color:#ffdf9a}50%{translate:3px -5px;rotate:3deg;color:#b3edff}100%{translate:-1px -13px;rotate:8deg;color:#edc4ff}}
+@media(prefers-reduced-motion:reduce){#gem-discovery .mystery-words span{animation:none}}
+.gem-color-heading button[data-delete-gem-color]{margin-left:auto;font-size:calc(12px * var(--font-scale,1));padding:8px 12px}

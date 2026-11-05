@@ -7,12 +7,12 @@ export const scenes = [
 ];
 export function stoneType(position){const n=((position%10)+10)%10;return n===3?'chance':n===7?'fate':'question'}
 export function windowStart(position){return Math.floor(position/7)*7}
-export function activeQuestions(state){return state.questions.filter(q=>!state.disabledFolders.includes(q.folder||''))}
+export function activeQuestions(state){const answered=new Set(state.answeredQuestionIds||[]);return state.questions.filter(q=>!(state.disabledFolders||[]).includes(q.folder||'')&&(state.repeatQuestions!==false||!answered.has(q.id)))}
 export function readyPortal(state){return state.sceneAnswers>=state.sceneTarget}
-export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)state.stars+=amount}
-export function completeQuestion(state){const oldLevel=Math.floor(state.xp/100);grantReward(state,state.reward);state.sceneAnswers++;return {portalReady:readyPortal(state),leveled:Math.floor(state.xp/100)>oldLevel}}
+export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)grantStars(state,amount)}
+export function completeQuestion(state,questionId){if(questionId){state.answeredQuestionIds??=[];if(!state.answeredQuestionIds.includes(questionId))state.answeredQuestionIds.push(questionId);}const oldLevel=Math.floor(state.xp/100);grantReward(state,state.reward);state.sceneAnswers++;return {portalReady:readyPortal(state),leveled:Math.floor(state.xp/100)>oldLevel}}
 export function enterPortal(state){if(!readyPortal(state))return false;state.sceneIndex++;state.sceneAnswers=0;state.position=0;return true}
-export function resetProgress(state){state.avatar='';state.answerNotice=null;state.pendingGemFind=null;state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll){state.doll.pendingReward=null;state.doll.levelRewards=[];}if(state.gems){state.gems.owned={};state.gems.mined=0;state.gems.lastFind=null}}
+export function resetProgress(state){state.avatar='';state.answeredQuestionIds=[];state.dailyStars=null;state.answerNotice=null;state.pendingGemFind=null;state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll){state.doll.pendingReward=null;state.doll.levelRewards=[];const defaults=(state.doll.assets||[]).filter(item=>item.isDefault);state.doll.unlocked=defaults.map(item=>item.id);state.doll.equipped=Object.fromEntries(['hair','eyes','clothes','pets'].map(category=>[category,defaults.find(item=>item.category===category)?.id||null]));}if(state.gems){state.gems.owned={};state.gems.mined=0;state.gems.lastFind=null}}
 
 export const characters=[
  {id:'human',name:'白裙旅人',description:'黑髮・人類女生・白色短袖長裙',file:'human.png',label:'預設造型'},
@@ -29,3 +29,10 @@ export function normalizePlayerScale(value){return Number.isFinite(Number(value)
 export function normalizeFontScale(value){return Number.isFinite(value)?Math.max(.8,Math.min(1.5,value)):1}
 
 export function clearStars(state){state.stars=0}
+
+export function taipeiDay(now=new Date()){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(now)}
+export function grantStars(state,amount,now=new Date()){if(!(amount>0))return;state.stars=(Number(state.stars)||0)+amount;const date=taipeiDay(now);if(state.dailyStars?.date!==date)state.dailyStars={date,amount:0};state.dailyStars.amount=Math.max(0,Number(state.dailyStars.amount)||0)+amount}
+export function starsToday(state,now=new Date()){return state.dailyStars?.date===taipeiDay(now)?Math.max(0,Number(state.dailyStars.amount)||0):0}
+export function clearAnsweredQuestions(state){state.answeredQuestionIds=[]}
+export function createDefaultEvents(){return {chance:[{id:'chance-1',title:'精靈的祝福',description:'你幫助了一隻迷路的小精靈，獲得了祝福。',xp:15},{id:'chance-2',title:'古樹的禮物',description:'樹洞裡藏著一顆智慧結晶。',xp:10}],fate:[{id:'fate-1',title:'迷霧的試煉',description:'穿過迷霧時遺落了一些能量。',xp:-10},{id:'fate-2',title:'星辰的指引',description:'星光照亮了前方的路。',xp:5}]}}
+export function normalizeEvents(value){const fallback=createDefaultEvents();return Object.fromEntries(['chance','fate'].map(kind=>[kind,Array.isArray(value?.[kind])?value[kind].filter(x=>x&&typeof x.title==='string').slice(0,200).map((x,i)=>({id:typeof x.id==='string'?x.id:kind+'-'+i,title:x.title.trim().slice(0,60)||'新的事件',description:String(x.description||'').slice(0,2000),xp:Number.isFinite(Number(x.xp))?Math.max(-10000,Math.min(10000,Math.round(Number(x.xp)))):0})):fallback[kind]]))}
