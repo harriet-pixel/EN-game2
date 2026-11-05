@@ -405,3 +405,17 @@ body>.test-ribbon{margin-left:var(--sidebar-width)}
 .overview-metric strong{white-space:nowrap}
 @media(max-width:1200px){.overview-metric strong{font-size:calc(17px * var(--font-scale,1))}.overview-rainbow-icon,.overview-star{font-size:30px}}
 .overview-player #level{width:max-content;flex-shrink:0}
+
+/* Larger dressing mirror, with the same warm canvas behind every preview. */
+.wardrobe-layout{grid-template-columns:minmax(300px,440px) minmax(0,1fr)}
+.wardrobe-preview-panel{padding:12px}
+body[data-appearance] .wardrobe-preview-panel,
+body[data-appearance] #wardrobe-doll-preview,
+body[data-appearance] #doll-edit-stage,
+body[data-appearance] #settings-character-preview,
+body[data-appearance] .accessory-thumb,
+body[data-appearance] .accessory-file-card,
+body[data-appearance] .bulk-file-card,
+body[data-appearance] .reward-accessory-preview{background:#f5e9c9!important}
+@media(max-width:1100px){.wardrobe-layout{grid-template-columns:minmax(220px,38%) minmax(0,1fr)}}
+@media(max-width:800px){.wardrobe-layout{grid-template-columns:minmax(140px,35%) minmax(0,1fr);gap:14px}.wardrobe-preview-panel{padding:8px}}
