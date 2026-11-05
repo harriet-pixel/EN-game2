@@ -404,3 +404,4 @@ body[data-appearance=light] .player-hud #player-name{color:#fff1fa;text-shadow:0
 body>.test-ribbon{margin-left:var(--sidebar-width)}
 .overview-metric strong{white-space:nowrap}
 @media(max-width:1200px){.overview-metric strong{font-size:calc(17px * var(--font-scale,1))}.overview-rainbow-icon,.overview-star{font-size:30px}}
+.overview-player #level{width:max-content;flex-shrink:0}
