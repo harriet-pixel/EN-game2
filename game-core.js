@@ -36,3 +36,6 @@ export function starsToday(state,now=new Date()){return state.dailyStars?.date==
 export function clearAnsweredQuestions(state){state.answeredQuestionIds=[]}
 export function createDefaultEvents(){return {chance:[{id:'chance-1',title:'精靈的祝福',description:'你幫助了一隻迷路的小精靈，獲得了祝福。',xp:15},{id:'chance-2',title:'古樹的禮物',description:'樹洞裡藏著一顆智慧結晶。',xp:10}],fate:[{id:'fate-1',title:'迷霧的試煉',description:'穿過迷霧時遺落了一些能量。',xp:-10},{id:'fate-2',title:'星辰的指引',description:'星光照亮了前方的路。',xp:5}]}}
 export function normalizeEvents(value){const fallback=createDefaultEvents();return Object.fromEntries(['chance','fate'].map(kind=>[kind,Array.isArray(value?.[kind])?value[kind].filter(x=>x&&typeof x.title==='string').slice(0,200).map((x,i)=>({id:typeof x.id==='string'?x.id:kind+'-'+i,title:x.title.trim().slice(0,60)||'新的事件',description:String(x.description||'').slice(0,2000),xp:Number.isFinite(Number(x.xp))?Math.max(-10000,Math.min(10000,Math.round(Number(x.xp)))):0})):fallback[kind]]))}
+
+export function normalizeDiceScale(value){const n=Number(value);return value==null||value===''||!Number.isFinite(n)?1:Math.max(.25,Math.min(1.5,n))}
+export function getPendingChallenge(state){return state.questions?.find(q=>q.id===state.pendingChallengeId)||null}

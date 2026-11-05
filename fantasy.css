@@ -419,3 +419,14 @@ body[data-appearance] .bulk-file-card,
 body[data-appearance] .reward-accessory-preview{background:#f5e9c9!important}
 @media(max-width:1100px){.wardrobe-layout{grid-template-columns:minmax(220px,38%) minmax(0,1fr)}}
 @media(max-width:800px){.wardrobe-layout{grid-template-columns:minmax(140px,35%) minmax(0,1fr);gap:14px}.wardrobe-preview-panel{padding:8px}}
+/* A saved dice scale keeps the one-character top/right inset. */
+.player-hud{--dice-base:calc(var(--hud-height,106px) * 3);--dice-size:calc(var(--dice-base) * var(--dice-scale,1))}
+.player-hud .scene-dice,.player-hud .scene-dice .dice{width:var(--dice-size);height:var(--dice-size)}
+.player-hud .player-card{max-width:calc(100% - var(--dice-size) - 18px)}
+.dice-scale-settings{margin-top:20px}
+.dice-scale-settings input[type=range]{width:100%}
+.settings-dice-preview{height:170px;display:flex;align-items:center;justify-content:center;color:var(--dice-color,#f4e0b3);background:#202637;border:1px solid var(--line);border-radius:10px}
+.settings-dice-preview .dice{display:block;position:relative;width:calc(96px * var(--sample-dice-scale,1));height:calc(96px * var(--sample-dice-scale,1));font-size:0;border:0;background:none;box-shadow:none}
+.settings-dice-preview .dice:before{content:'';position:absolute;inset:0;background:currentColor;mask:var(--dice-face) center/contain no-repeat;-webkit-mask:var(--dice-face) center/contain no-repeat}
+body[data-appearance=light] .settings-dice-preview{background:#fff2f9}
+@media(max-width:760px){.player-hud{--dice-base:115px}}
