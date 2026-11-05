@@ -450,3 +450,18 @@ body[data-appearance=light] .overview-link:hover,body[data-appearance=light] .ov
 #settings-display .adventure-appearance-preview{margin-top:0;position:sticky;top:20px}
 @media(max-width:1250px){.appearance-live-layout{grid-template-columns:1fr}.appearance-live-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.appearance-live-controls .appearance-options{grid-column:1/-1}.appearance-live-controls .size-settings-grid{display:contents}.appearance-live-controls .size-settings-grid fieldset{margin:0!important}#settings-display .adventure-appearance-preview{position:static}}
 @media(max-width:800px){.appearance-live-controls{grid-template-columns:1fr}.appearance-live-controls .appearance-options{grid-column:auto}}
+/* Opaque, fully filled dialogue and tail in both themes. */
+body[data-appearance] #character>.bubble{background:#f5e9c9!important;color:#5a4a50!important;opacity:1;backdrop-filter:none}
+body[data-appearance] #character>.bubble:after{border-top-color:#f5e9c9}
+body[data-appearance] #character>.bubble.bubble-side:after{border-top-color:transparent;border-right-color:#f5e9c9}
+#character>.bubble[hidden]{display:none!important}
+#character>.bubble[role=button]{cursor:pointer}
+#dialogue-settings-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:20px}
+.dialogue-setting-card{min-width:0;padding:20px;border:1px solid var(--line);border-radius:10px;background:#252b3b}
+.dialogue-setting-card h3{margin:0 0 8px;font-size:calc(16px * var(--font-scale,1))}
+.dialogue-setting-card p{min-height:3em}
+.dialogue-setting-card textarea{width:100%;resize:vertical;min-height:90px}
+.dialogue-audio-status{display:block;margin:12px 0;color:var(--muted);overflow-wrap:anywhere;font-size:calc(12px * var(--font-scale,1))}
+.dialogue-audio-actions{display:flex;gap:8px;flex-wrap:wrap}
+body[data-appearance=light] .dialogue-setting-card{background:#fff5fa}
+@media(max-width:1100px){#dialogue-settings-list{grid-template-columns:1fr}}
