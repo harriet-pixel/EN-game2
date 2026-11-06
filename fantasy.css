@@ -1215,3 +1215,29 @@ body[data-appearance="rose-quartz"] .xp-track i { background:linear-gradient(#FF
 body[data-appearance="rose-quartz"] .wardrobe-summary { background:linear-gradient(115deg,#6B4A78,#3D2D48) padding-box,linear-gradient(100deg,#E4B5D9,#AAA4E9,#A1D9E8,#E9C1DC) border-box; }
 body[data-appearance="rose-quartz"] :is(.accessory-file-card,.bulk-file-card) { color:#3D2D48; }
 body[data-appearance="rose-quartz"] .appearance-options label:has(input:checked) { background:#D88AA833; border-color:#FF9EC4; }
+
+/* Ice Lake: user-defined palette; scene artwork and rainbow rewards stay original. */
+body[data-appearance="ice-lake"] {
+ --bg:#1A2040; --ink:#F2F6FF; --muted:#B8C2E6; --green:#8FA3E8; --gold:#E9DDB0; --line:#B8C8F040; --dice-color:#F6F0D2;
+ background:radial-gradient(at 50% 10%,#3F4A7A 0,transparent 60%),#1A2040; color:var(--ink);
+}
+body[data-appearance="ice-lake"] :is(header,aside,.settings-section,.settings-panel,.overview-metric,.question-card,.paper-item,.outfit-card,.scene-setting-card,.dialogue-setting-card,.editor-canvas-panel,.editor-controls,.settings-savebar,.gem-settings-savebar,.library-promo,.test-ribbon) { background:#262E55; border-color:var(--line); color:var(--ink); }
+body[data-appearance="ice-lake"] :is(dialog:not(#image-viewer):not(#gem-discovery):not(#gem-detail),#toast,#answer) { background:#262E55; color:var(--ink); border-color:var(--line); }
+body[data-appearance="ice-lake"] :is(h1,h2,h3,legend,.brand,.quest-panel h3,.player-name,.settings-section label,.paper-item strong) { color:var(--ink); }
+body[data-appearance="ice-lake"] :is(.page-heading p,.storage-note,.quest-panel p,.doll-collection-note,footer,.nav,.settings-section p,.settings-section small,.dialogue-setting-card p,.paper-item small) { color:var(--muted); }
+body[data-appearance="ice-lake"] :is(h1 span,.eyebrow,.brand small,.icon-button,.tiny-star,.overview-star,.book-icon) { color:var(--gold); }
+body[data-appearance="ice-lake"] .primary { background:var(--green); color:#1A2040; border-color:var(--line); }
+body[data-appearance="ice-lake"] .primary:hover { background:#B8C8F0; }
+body[data-appearance="ice-lake"] :is(.secondary,.doll-category-tabs button,.editor-category-picker button,.library-tabs button,#gem-filters button,.batch button) { background:#3F4A7A; color:var(--ink); border-color:var(--line); }
+body[data-appearance="ice-lake"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),textarea,select) { background:#3F4A7A; color:var(--ink); border-color:var(--line); }
+body[data-appearance="ice-lake"] :is(input[type="checkbox"],input[type="radio"],input[type="range"]) { accent-color:#8FA3E8; }
+body[data-appearance="ice-lake"] #site-navigation .nav.active { color:#A5DCFF; background:#A5DCFF1C; border-color:var(--line); }
+body[data-appearance="ice-lake"] #site-navigation .nav.active::after { background:#A5DCFF; }
+body[data-appearance="ice-lake"] :is(.folder.active,.library-tabs button[aria-selected="true"],.doll-category-tabs button.active,.editor-category-picker button.active,#gem-filters button.active) { background:#8FA3E8; color:#262E55; border-color:#A5DCFF; }
+body[data-appearance="ice-lake"] .game-frame { border-color:#C7BC96; }
+body[data-appearance="ice-lake"] .xp-track i { background:linear-gradient(#BDEBFF,#8A8CF0); }
+body[data-appearance="ice-lake"] .wardrobe-summary { background:linear-gradient(115deg,#1A2040,#262E55) padding-box,linear-gradient(100deg,#E4B5D9,#AAA4E9,#A1D9E8,#E9C1DC) border-box; }
+body[data-appearance="ice-lake"] :is(.accessory-file-card,.bulk-file-card) { color:#262E55; }
+body[data-appearance="ice-lake"] .appearance-options label:has(input:checked) { background:#8FA3E833; border-color:#A5DCFF; }
+
+body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.dialogue-setting-card p,.settings-section small) { color:#C6CEEC; }
