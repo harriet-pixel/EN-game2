@@ -240,3 +240,9 @@ npm run build
 ### Ogg Vorbis 音檔
 
 角色各情境配音與寶石發現音效皆支援 .ogg（Vorbis），選擇器明確接受 audio/ogg、application/ogg 與 .ogg／.oga 副檔名。未提供 MIME、使用 application/ogg 或附帶 codecs 參數時，驗證 OggS 標頭後統一儲存為 data:audio/ogg；保留原始壓縮內容，不重新轉碼。原有其他 audio/* 格式及每檔 10 MB 上限維持。已以實際 Vorbis 編碼檔測試試聽、遊玩播放與完整備份還原。
+
+### Published default preset
+
+`default-state.json` contains the owner’s reviewed settings and collection metadata. On a browser with no saved game it initializes a fresh adventure with only default outfit pieces unlocked. Existing browser saves remain authoritative. Uploaded media lives in `assets/defaults/` under SHA-256 filenames, is loaded as needed, and is embedded back into exported backups for offline portability. PNG accessories were converted to lossless WebP; audio bytes are preserved. The configured body and head replace `assets/base-body.webp` and `assets/head.webp` directly. The five configured scene backgrounds and all character voice lines are included.
+
+To intentionally regenerate the preset, run `node scripts/prepare-defaults.mjs /path/to/reviewed-backup.json` from the repository root (requires ImageMagick `convert`), then review the generated diff and run tests/build. Never commit the raw backup; it duplicates the extracted media and may include private play data. The generated preset clears progression, acquired gems, avatar and pending rewards. Uploading/importing a backup in the website remains local to that browser and does not publish it.

@@ -1,3 +1,4 @@
+import {isBundledMedia} from './bundled-media.js';
 export const scenes = [
  {name:'微光森林',subtitle:'晨曦小徑',english:'THE WHISPERING WOODS',description:'聽見了嗎？森林正在等待你的故事。',theme:'forest'},
  {name:'琥珀暮林',subtitle:'落日古道',english:'THE AMBER GROVE',description:'金色的風，帶來下一段冒險的邀請。',theme:'amber'},
@@ -21,7 +22,7 @@ export const characters=[
 export function getCharacter(id){return characters.find(c=>c.id===id)||characters[0]}
 
 export function createSceneConfigs(){return scenes.map(scene=>({name:scene.name,background:null}))}
-export function normalizeSceneConfigs(value){return scenes.map((scene,i)=>{const c=Array.isArray(value)?value[i]:null;return {name:typeof c?.name==='string'&&c.name.trim()?c.name.trim().slice(0,40):scene.name,background:typeof c?.background==='string'&&/^data:image\/(png|webp|jpeg);base64,/i.test(c.background)?c.background:null}})}
+export function normalizeSceneConfigs(value){return scenes.map((scene,i)=>{const c=Array.isArray(value)?value[i]:null;return {name:typeof c?.name==='string'&&c.name.trim()?c.name.trim().slice(0,40):scene.name,background:typeof c?.background==='string'&&(/^data:image\/(png|webp|jpeg);base64,/i.test(c.background)||isBundledMedia(c.background))?c.background:null}})}
 export function currentScene(state){const i=state.sceneIndex%scenes.length;return {...scenes[i],...state.sceneConfigs?.[i]}}
 
 export function normalizePlayerScale(value){return Number.isFinite(Number(value))?Math.max(.5,Math.min(2,Number(value))):1}

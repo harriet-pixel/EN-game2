@@ -1,0 +1,10 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';
+import {isBundledMedia} from '../bundled-media.js';
+import {normalizePaperDoll} from '../paper-doll.js';import {normalizeGems} from '../gems.js';import {normalizeDialogueSettings} from '../dialogue.js';import {normalizeSceneConfigs} from '../game-core.js';
+test('published preset is a fresh game with all configured collections and portable linked assets',async()=>{
+ const state=JSON.parse(await readFile(new URL('../default-state.json',import.meta.url),'utf8'));assert.equal(state.doll.assets.length,77);assert.equal(normalizePaperDoll(state.doll).assets.length,77);assert.equal(Object.keys(normalizeGems(state.gems).images).length,160);assert.equal(state.doll.unlocked.length,3);assert.equal(state.xp,0);assert.equal(state.stars,0);assert.deepEqual(state.answeredQuestionIds,[]);assert.deepEqual(state.gems.owned,{});assert.equal(state.doll.pendingReward,null);assert.ok(normalizeDialogueSettings(state.dialogue).lines.start.audio);assert.ok(normalizeSceneConfigs(state.sceneConfigs)[1].background);
+ const files=new Set();function inspect(v){if(typeof v==='string'){assert.ok(!v.startsWith('data:'));if(v.startsWith('assets/defaults/')){assert.ok(isBundledMedia(v)||isBundledMedia(v,'audio'));files.add(v)}}else if(Array.isArray(v))v.forEach(inspect);else if(v&&typeof v==='object')Object.values(v).forEach(inspect)}inspect(state);
+ for(const file of files){const bytes=await readFile(new URL('../'+file,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),file.split('/').pop().split('.')[0])}
+});
+test('linked media accepts only this site’s content-addressed assets',()=>{const hash='a'.repeat(64);assert.ok(isBundledMedia('assets/defaults/'+hash+'.webp'));assert.ok(isBundledMedia('assets/defaults/'+hash+'.ogg','audio'));assert.equal(isBundledMedia('https://example.com/assets/defaults/'+hash+'.webp'),false);assert.equal(isBundledMedia('assets/defaults/../file.webp'),false);assert.equal(isBundledMedia('assets/defaults/'+hash+'.ogg'),false)});

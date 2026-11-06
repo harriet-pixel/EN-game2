@@ -1,3 +1,4 @@
+import {isBundledMedia} from './bundled-media.js';
 export const dialogueScenarios=[
  {id:'start',name:'開始／重新出發',text:'冒險，出發！',hint:'進入遊戲或重置進度時。'},
  {id:'challenge',name:'遇到題目',text:'發現新挑戰！',hint:'開啟旅途挑戰時。'},
@@ -11,6 +12,6 @@ export const dialogueScenarios=[
  {id:'levelUp',name:'升等',text:'升到第{level}級了！一起繼續成長吧！',hint:'播放升等動畫時。'}
 ];
 export const dialogueAudioPattern=/^data:audio\/[\w.+-]+;base64,[a-z\d+/=\s]+$/i;
-export function normalizeDialogueSettings(value){return {voiceEnabled:value?.voiceEnabled!==false,lines:Object.fromEntries(dialogueScenarios.map(s=>{const line=value?.lines?.[s.id];return [s.id,{enabled:line?.enabled!==false,text:typeof line?.text==='string'?line.text.slice(0,300):s.text,audio:typeof line?.audio==='string'&&dialogueAudioPattern.test(line.audio)?line.audio:null,audioName:typeof line?.audioName==='string'?line.audioName.slice(0,100):''}]}))}}
+export function normalizeDialogueSettings(value){return {voiceEnabled:value?.voiceEnabled!==false,lines:Object.fromEntries(dialogueScenarios.map(s=>{const line=value?.lines?.[s.id];return [s.id,{enabled:line?.enabled!==false,text:typeof line?.text==='string'?line.text.slice(0,300):s.text,audio:typeof line?.audio==='string'&&(dialogueAudioPattern.test(line.audio)||isBundledMedia(line.audio,'audio'))?line.audio:null,audioName:typeof line?.audioName==='string'?line.audioName.slice(0,100):''}]}))}}
 export function formatDialogue(text,values={}){return String(text).replace(/\{(player|scene|level|stars)\}/g,(match,key)=>values[key]==null?match:String(values[key]))}
 export function validateDialogueAudio(value){for(const s of dialogueScenarios){const audio=value?.lines?.[s.id]?.audio;if(audio!=null&&(typeof audio!=='string'||!dialogueAudioPattern.test(audio)))throw Error('角色配音備份格式不正確：'+s.name)}}
