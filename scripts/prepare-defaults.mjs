@@ -15,7 +15,7 @@ const decode=source=>{const [header,payload]=source.split(',');return {mime:head
  }
  data.doll.baseData=null;data.doll.clothesBaseData=null;
  // New devices begin a new game, retaining the owner's configured default outfit.
- resetProgress(data);delete data.builtInImages;
+ resetProgress(data);delete data.builtInImages;delete data.reward;delete data.characterId;delete data.doll.wardrobeTabs;for(const item of data.doll.assets){delete item.drawWeight;delete item.parts}
  async function extract(value){
   if(typeof value==='string'&&/^data:(image|audio)\//.test(value)){
    if(cache.has(value))return cache.get(value);

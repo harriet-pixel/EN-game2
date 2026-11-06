@@ -15,9 +15,6 @@ export function completeQuestion(state,questionId,random=Math.random){if(questio
 export function enterPortal(state){if(!readyPortal(state))return false;state.sceneIndex++;state.sceneAnswers=0;state.position=0;return true}
 export function resetProgress(state){state.lastAnswerReward=null;state.pendingChallengeId=null;state.avatar='';state.answeredQuestionIds=[];state.dailyStars=null;state.answerNotice=null;state.pendingGemFind=null;state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll){state.doll.pendingReward=null;state.doll.levelRewards=[];const defaults=(state.doll.assets||[]).filter(item=>item.isDefault);state.doll.unlocked=defaults.map(item=>item.id);state.doll.equipped=Object.fromEntries(['hair','eyes','clothes','pets'].map(category=>[category,defaults.find(item=>item.category===category)?.id||null]));}if(state.gems){state.gems.owned={};state.gems.mined=0;state.gems.lastFind=null}}
 
-export const characters=[{id:'human',name:'冒險旅人',description:'紙娃娃造型',file:'base-body.webp',label:'目前造型'}];
-export function getCharacter(id){return characters.find(c=>c.id===id)||characters[0]}
-
 export function createSceneConfigs(){return scenes.map(scene=>({name:scene.name,background:null}))}
 export function normalizeSceneConfigs(value){return scenes.map((scene,i)=>{const c=Array.isArray(value)?value[i]:null;return {name:typeof c?.name==='string'&&c.name.trim()?c.name.trim().slice(0,40):scene.name,background:typeof c?.background==='string'&&(/^data:image\/(png|webp|jpeg);base64,/i.test(c.background)||isBundledMedia(c.background))?c.background:null}})}
 export function currentScene(state){const i=state.sceneIndex%scenes.length;return {...scenes[i],...state.sceneConfigs?.[i]}}
@@ -38,6 +35,6 @@ export function normalizeEvents(value){const fallback=createDefaultEvents();retu
 export function normalizeDiceScale(value){const n=Number(value);return value==null||value===''||!Number.isFinite(n)?1:Math.max(.25,Math.min(1.5,n))}
 export function getPendingChallenge(state){return state.questions?.find(q=>q.id===state.pendingChallengeId)||null}
 
-export function answerRewardRange(state){const valid=n=>Number.isInteger(n)&&n>=0&&n<=10000,legacy=valid(state.reward)?state.reward:25,min=valid(state.rewardMin)?state.rewardMin:legacy,max=valid(state.rewardMax)?state.rewardMax:legacy;return {min:Math.min(min,max),max:Math.max(min,max)}}
+export function answerRewardRange(state){const valid=n=>Number.isInteger(n)&&n>=0&&n<=10000,min=valid(state.rewardMin)?state.rewardMin:25,max=valid(state.rewardMax)?state.rewardMax:25;return {min:Math.min(min,max),max:Math.max(min,max)}}
 
 export function normalizeThemeMode(value){return ['rose-quartz','ice-lake'].includes(value)?value:'obsidian'}
