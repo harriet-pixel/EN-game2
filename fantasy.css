@@ -506,3 +506,6 @@ body[data-appearance=light] #gem-detail .close{color:#b27b9a}
 #settings-dialogue input[type=checkbox]{width:28px;height:28px;min-width:28px;vertical-align:middle;accent-color:#ac799d;cursor:pointer}
 .dialogue-voice-toggle{display:flex!important;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
 @media(max-width:600px){.answer-reward-range>div{grid-template-columns:1fr}}
+
+.default-images-download{display:inline-block;padding:12px 18px;border:1px solid var(--line);border-radius:5px;color:var(--ink);text-decoration:none;font:inherit}
+.default-images-download:hover{filter:brightness(1.08)}
