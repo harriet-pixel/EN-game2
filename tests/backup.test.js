@@ -1,5 +1,6 @@
+import {createTestDoll as createPaperDoll} from '../test-support/doll-fixture.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {makeBackup,readBackupEnvelope} from '../backup-format.js';import {createPaperDoll,commonDollFrame,normalizePaperDoll} from '../paper-doll.js';import {normalizePlayerScale,normalizeFontScale} from '../game-core.js';
+import {makeBackup,readBackupEnvelope} from '../backup-format.js';import {commonDollFrame,normalizePaperDoll} from '../paper-doll.js';import {normalizePlayerScale,normalizeFontScale} from '../game-core.js';
 const png='data:image/png;base64,AAAA',images={forest:png,stone:png,baseBody:png};
 test('backup preserves inline images and independent state snapshot',()=>{const state={questions:[{id:'q',image:png}],folders:[],avatar:png,doll:createPaperDoll(),sceneConfigs:[{background:png}]},backup=makeBackup(state,images);state.avatar='';const result=readBackupEnvelope(JSON.parse(JSON.stringify(backup)));assert.equal(result.data.avatar,png);assert.equal(result.data.questions[0].image,png);assert.deepEqual(result.images,images);assert.equal(result.data.doll.assets[0].image,backup.data.doll.assets[0].image)});
 test('invalid backup and duplicated ids are rejected before persistence',()=>{assert.throws(()=>readBackupEnvelope({}));const b=makeBackup({questions:[{id:'a'},{id:'a'}],folders:[],doll:{assets:[]}},images);assert.throws(()=>readBackupEnvelope(b));b.data.questions=[];delete b.images.stone;assert.throws(()=>readBackupEnvelope(b))});

@@ -20,7 +20,7 @@ const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
 html=html.replace('<span id="app-version">開發版</span>',`<span id="app-version">版本 ${hash.slice(0,8)}</span>`);await writeFile('dist/index.html',html);await writeFile(`dist/app.${hash}.js`,js);await writeFile(`dist/style.${cssHash}.css`,css);await copyFile('scene.svg','dist/scene.svg');await writeFile('dist/.nojekyll','');
-for(const asset of ['forest.png','hero.png','stone.png','human.png','base-body.png','forest.webp','stone.webp','base-body.webp','portal.png','discovery.wav'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
+for(const asset of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.webp','discovery.wav'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
 await mkdir('dist/assets/fonts',{recursive:true});for(const file of ['jf-openhuninn.woff','OFL.txt'])await copyFile('assets/fonts/'+file,'dist/assets/fonts/'+file);
 // Keep the old experiment URL available, with its original isolated database.
 await mkdir('dist/fantasy-test',{recursive:true});

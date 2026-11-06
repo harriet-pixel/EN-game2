@@ -1,0 +1,2 @@
+import {createPaperDoll} from '../paper-doll.js';
+export function createTestDoll(){const d=createPaperDoll();const sample=(id,category,name,z)=>({id,category,name,image:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1400"><rect x="100" y="100" width="100" height="100" fill="blue"/></svg>'),x:0,y:0,width:100,height:100,z});d.assets=[sample('starter-hair','hair','測試髮型',30),sample('starter-eyes','eyes','測試眼睛',20),sample('starter-clothes','clothes','測試服裝',10),...d.assets];return d}
