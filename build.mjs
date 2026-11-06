@@ -19,7 +19,8 @@ const backupUI=(await readFile('backup-ui.js','utf8')).replace(/^import .*?;\n/g
 const dialogue=(await readFile('dialogue.js','utf8')).replace(/^export /gm,'');
 const dialogueUI=(await readFile('dialogue-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const imageFiles=(await readFile('image-files.js','utf8')).replace(/^export /gm,'');
-const js=`(()=>{\n${imageFiles}\n${dialogue}\n${dialogueUI}\n${backupFormat}\n${backupUI}\n${sceneUI}\n${eventUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${paper}\n${dollUI}\n${app}\n})();`;
+const audioFiles=(await readFile('audio-files.js','utf8')).replace(/^export /gm,'');
+const js=`(()=>{\n${audioFiles}\n${imageFiles}\n${dialogue}\n${dialogueUI}\n${backupFormat}\n${backupUI}\n${sceneUI}\n${eventUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${paper}\n${dollUI}\n${app}\n})();`;
 const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);

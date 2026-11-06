@@ -1,0 +1,5 @@
+export const audioUploadAccept='audio/*,audio/ogg,application/ogg,.ogg,.oga';
+export function isOggFile(file){return /\.(ogg|oga)$/i.test(file.name||'')||/^(audio|application)\/(?:x-)?ogg(?:\s*;|$)/i.test(file.type||'')}
+export function audioFileType(file){if(isOggFile(file))return 'audio/ogg';const type=String(file.type||'').split(';')[0].trim().toLowerCase();return /^audio\/[\w.+-]+$/.test(type)?type:null}
+export function validOggHeader(bytes){return bytes.length>=5&&bytes[0]===79&&bytes[1]===103&&bytes[2]===103&&bytes[3]===83&&bytes[4]===0}
+export async function readAudioFile(file){if(file.size>10*1024*1024)throw Error('請選擇 10 MB 以下的音檔');const type=audioFileType(file);if(!type)throw Error('請選擇音檔，支援 Ogg Vorbis（.ogg）');if(isOggFile(file)&&!validOggHeader(new Uint8Array(await file.slice(0,5).arrayBuffer())))throw Error('檔案不是有效 Ogg 音檔');return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error('無法讀取音檔'));reader.readAsDataURL(new Blob([file],{type}))})}
