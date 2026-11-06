@@ -34,7 +34,7 @@ npm run build
 
 正式版沿用 `mosslight` IndexedDB；既有題庫、頭像與進度會保留。舊版各場景獨立題數會以目前場景的門檻遷移為共用題數。舊自訂主題色升級為預設黑曜版。所有資料僅屬於目前瀏覽器與來源，不支援跨裝置同步；清除網站資料會移除內容，請保留原始圖片。
 
-`assets/forest.webp`、`assets/stone.webp`、`assets/base-body.webp`、`assets/head.webp`、`assets/portal.webp` 是目前使用的無損網頁圖檔，原始 PNG 另行保留。`fantasy.css` 提供奇幻黑曜樣式。人物使用底模與配件分層搭配移動動畫；五個場景預設以色調區分，可各自上傳底圖。
+`assets/forest.webp`、`assets/stone.webp`、`assets/base-body.webp`、`assets/head.webp`、`assets/portal.png` 是目前使用的網頁圖檔，保留提供的原始格式與內容。`fantasy.css` 提供奇幻黑曜樣式。人物使用底模與配件分層搭配移動動畫；五個場景預設以色調區分，可各自上傳底圖。
 
 舊美術測試網址 `/EN-game2/fantasy-test/` 仍可使用，繼續使用獨立的 `mosslight-fantasy-preview` 資料庫，不會覆寫正式版。
 
@@ -243,6 +243,8 @@ npm run build
 
 ### Published default preset
 
-`default-state.json` contains the owner’s reviewed settings and collection metadata. On a browser with no saved game it initializes a fresh adventure with only default outfit pieces unlocked. Existing browser saves remain authoritative. Uploaded media lives in `assets/defaults/` under SHA-256 filenames, is loaded as needed, and is embedded back into exported backups for offline portability. PNG accessories were converted to lossless WebP; audio bytes are preserved. The configured body and head replace `assets/base-body.webp` and `assets/head.webp` directly. The five configured scene backgrounds and all character voice lines are included.
+`default-state.json` contains the owner’s reviewed settings and collection metadata. On a browser with no saved game it initializes a fresh adventure with only default outfit pieces unlocked. Existing browser saves remain authoritative. Uploaded media lives in `assets/defaults/` under SHA-256 filenames, is loaded as needed, and is embedded back into exported backups for offline portability. All uploaded image and audio files retain their original bytes and formats; no conversion or recompression is performed. The configured body and head replace `assets/base-body.webp` and `assets/head.webp` directly. The five configured scene backgrounds and all character voice lines are included.
 
-To intentionally regenerate the preset, run `node scripts/prepare-defaults.mjs /path/to/reviewed-backup.json` from the repository root (requires ImageMagick `convert`), then review the generated diff and run tests/build. Never commit the raw backup; it duplicates the extracted media and may include private play data. The generated preset clears progression, acquired gems, avatar and pending rewards. Uploading/importing a backup in the website remains local to that browser and does not publish it.
+To intentionally regenerate the preset, run `node scripts/prepare-defaults.mjs /path/to/reviewed-backup.json` from the repository root, then review the generated diff and run tests/build. Never commit the raw backup; it duplicates the extracted media and may include private play data. The generated preset clears progression, acquired gems, avatar and pending rewards. Uploading/importing a backup in the website remains local to that browser and does not publish it.
+
+Stone and magic circle were replaced with the owner’s original `stone.webp` (2172×724) and `portal.png` (500×500) from OK.zip, without conversion or recompression.
