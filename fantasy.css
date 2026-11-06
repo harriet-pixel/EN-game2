@@ -1191,3 +1191,27 @@ body[data-appearance] #character > .bubble.bubble-side::after { border-top-color
 #appearance-preview-viewport[data-preview-ready="false"] #appearance-preview-canvas { visibility:hidden; }
 #appearance-preview-viewport[data-preview-ready="false"]::after { content:'載入探險預覽…'; position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); font-size:14px; }
 html { scrollbar-gutter:stable; }
+
+/* Rose Quartz: user-defined palette; scene artwork and rainbow rewards stay original. */
+body[data-appearance="rose-quartz"] {
+ --bg:#6B4A78; --ink:#FFF1EC; --muted:#D9C3DA; --green:#D88AA8; --gold:#F2D49B; --line:#E8B8C840; --dice-color:#FFE8C2;
+ background:radial-gradient(at 50% 10%,#5A3F66 0,transparent 60%),#6B4A78; color:var(--ink);
+}
+body[data-appearance="rose-quartz"] :is(header,aside,.settings-section,.settings-panel,.overview-metric,.question-card,.paper-item,.outfit-card,.scene-setting-card,.dialogue-setting-card,.editor-canvas-panel,.editor-controls,.settings-savebar,.gem-settings-savebar,.library-promo,.test-ribbon) { background:#3D2D48; border-color:var(--line); color:var(--ink); }
+body[data-appearance="rose-quartz"] :is(dialog:not(#image-viewer):not(#gem-discovery):not(#gem-detail),#toast,#answer) { background:#3D2D48; color:var(--ink); border-color:var(--line); }
+body[data-appearance="rose-quartz"] :is(h1,h2,h3,legend,.brand,.quest-panel h3,.player-name,.settings-section label,.paper-item strong) { color:var(--ink); }
+body[data-appearance="rose-quartz"] :is(.page-heading p,.storage-note,.quest-panel p,.doll-collection-note,footer,.nav,.settings-section p,.settings-section small,.dialogue-setting-card p,.paper-item small) { color:var(--muted); }
+body[data-appearance="rose-quartz"] :is(h1 span,.eyebrow,.brand small,.icon-button,.tiny-star,.overview-star,.book-icon) { color:var(--gold); }
+body[data-appearance="rose-quartz"] .primary { background:var(--green); color:#2A1F33; border-color:var(--line); }
+body[data-appearance="rose-quartz"] .primary:hover { background:#E8B8C8; }
+body[data-appearance="rose-quartz"] :is(.secondary,.doll-category-tabs button,.editor-category-picker button,.library-tabs button,#gem-filters button,.batch button) { background:#5A3F66; color:var(--ink); border-color:var(--line); }
+body[data-appearance="rose-quartz"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),textarea,select) { background:#5A3F66; color:var(--ink); border-color:var(--line); }
+body[data-appearance="rose-quartz"] :is(input[type="checkbox"],input[type="radio"],input[type="range"]) { accent-color:#D88AA8; }
+body[data-appearance="rose-quartz"] #site-navigation .nav.active { color:#FF9EC4; background:#FF9EC41C; border-color:var(--line); }
+body[data-appearance="rose-quartz"] #site-navigation .nav.active::after { background:#FF9EC4; }
+body[data-appearance="rose-quartz"] :is(.folder.active,.library-tabs button[aria-selected="true"],.doll-category-tabs button.active,.editor-category-picker button.active,#gem-filters button.active) { background:#D88AA8; color:#3D2D48; border-color:#FF9EC4; }
+body[data-appearance="rose-quartz"] .game-frame { border-color:#D8B07A; }
+body[data-appearance="rose-quartz"] .xp-track i { background:linear-gradient(#FFD6E5,#F29BBB); }
+body[data-appearance="rose-quartz"] .wardrobe-summary { background:linear-gradient(115deg,#6B4A78,#3D2D48) padding-box,linear-gradient(100deg,#E4B5D9,#AAA4E9,#A1D9E8,#E9C1DC) border-box; }
+body[data-appearance="rose-quartz"] :is(.accessory-file-card,.bulk-file-card) { color:#3D2D48; }
+body[data-appearance="rose-quartz"] .appearance-options label:has(input:checked) { background:#D88AA833; border-color:#FF9EC4; }

@@ -41,3 +41,5 @@ export function normalizeDiceScale(value){const n=Number(value);return value==nu
 export function getPendingChallenge(state){return state.questions?.find(q=>q.id===state.pendingChallengeId)||null}
 
 export function answerRewardRange(state){const valid=n=>Number.isInteger(n)&&n>=0&&n<=10000,legacy=valid(state.reward)?state.reward:25,min=valid(state.rewardMin)?state.rewardMin:legacy,max=valid(state.rewardMax)?state.rewardMax:legacy;return {min:Math.min(min,max),max:Math.max(min,max)}}
+
+export function normalizeThemeMode(value){return value==='rose-quartz'?'rose-quartz':'obsidian'}
