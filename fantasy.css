@@ -29,7 +29,7 @@ h1 span { color: rgb(216, 193, 134); }
 .game-frame::before { left: -11px; }
 .game-frame::after { right: -11px; }
 .scene { height: 570px; border-radius: 4px 4px 0px 0px; background: rgb(53, 88, 104); }
-.background-layer { background-image: url("assets/forest.webp"); background-position: 50% 50%; background-size: auto 120%; image-rendering: pixelated; background-repeat: repeat-x; }
+.background-layer { background-image: none; background-position: 50% 50%; background-size: auto 120%; image-rendering: pixelated; background-repeat: repeat-x; }
 .scene-shade { background: linear-gradient(rgba(16, 42, 61, 0.25), transparent 36%, rgba(24, 58, 67, 0.19) 75%, rgba(12, 22, 44, 0.61)); }
 .scene-title { top: 31%; text-shadow: rgb(24, 36, 61) 0px 2px 4px, rgb(21, 46, 74) 0px 0px 24px; width: 100%; }
 .scene-title > span { font-size: calc(9px * var(--font-scale,1)); color: rgb(246, 239, 202); background: rgba(30, 49, 70, 0.286); padding: 6px 15px; letter-spacing: 5px; }
@@ -46,16 +46,16 @@ h1 span { color: rgb(216, 193, 134); }
 .location { top: 28px; right: 24px; background: rgba(23, 42, 67, 0.64); border: 1px solid rgba(232, 222, 170, 0.314); color: rgb(239, 234, 210); box-shadow: rgba(24, 50, 71, 0.25) 0px 3px 10px; }
 .fireflies { color: rgb(239, 255, 197); font-size: calc(16px * var(--font-scale,1)); filter: drop-shadow(rgb(201, 249, 254) 0px 0px 6px); }
 .path-layer { top: 82%; height: 85px; }
-.path-layer .stone { height: 86px; background: url("assets/stone.webp") center center / 100% 100% no-repeat; clip-path: none; border: 0px; box-shadow: none; overflow: visible; image-rendering: pixelated; filter: drop-shadow(rgba(28, 26, 63, 0.4) 0px 6px 1px); }
+.path-layer .stone { height: 86px; background: none; background-position:center; background-size:100% 100%; background-repeat:no-repeat; clip-path: none; border: 0px; box-shadow: none; overflow: visible; image-rendering: pixelated; filter: drop-shadow(rgba(28, 26, 63, 0.4) 0px 6px 1px); }
 .stone::before, .stone::after { display: none; }
 .stone span { position: relative; z-index: 1; margin-top: 7px; color: rgb(227, 253, 255); text-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(165, 202, 255) 0px 0px 10px, rgb(146, 188, 255) 0px 0px 17px; font-size: calc(28px * var(--font-scale,1)) !important; }
 .stone.chance span { color: rgb(255, 243, 160); text-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(251, 216, 110) 0px 0px 12px; }
 .stone.fate span { color: rgb(247, 214, 255); text-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(217, 171, 255) 0px 0px 12px; }
-.stone.current { background-image: url("assets/stone.webp"); box-shadow: none; filter: brightness(1.17) drop-shadow(rgba(233, 236, 177, 0.48) 0px 0px 8px); }
-.stone.portal { background-image: url("assets/stone.webp"); color: rgb(255, 255, 255); box-shadow: none; }
+.stone.current { background-image: var(--stone-image,none); box-shadow: none; filter: brightness(1.17) drop-shadow(rgba(233, 236, 177, 0.48) 0px 0px 8px); }
+.stone.portal { background-image: var(--stone-image,none); color: rgb(255, 255, 255); box-shadow: none; }
 .stone.portal span { color: rgb(255, 246, 255); filter: drop-shadow(rgb(207, 149, 255) 0px 0px 12px); }
 .character-layer { top: calc(82% - 101px); height: 110px; width: 84px; }
-.hero { width: 86px; height: 112px; background: url("assets/hero.png") center bottom / contain no-repeat; clip-path: none; image-rendering: pixelated; filter: drop-shadow(rgba(42, 45, 59, 0.533) 1px 2px 1px); }
+.hero { width: 86px; height: 112px; background: none; clip-path: none; image-rendering: pixelated; filter: drop-shadow(rgba(42, 45, 59, 0.533) 1px 2px 1px); }
 .hero::before, .hero::after { display: none; }
 .portrait .hero { width: 103px; height: 144px; top: 1px; left: -18px; transform: scale(1.1); background-position: center top; }
 .shadow { height: 10px; width: 57px; bottom: -2px; background: rgba(21, 40, 71, 0.333); }
@@ -222,9 +222,9 @@ dialog p { color: rgb(197, 188, 203); }
 }
 .scene-dice { top: 50%; }
 .dice-caption { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); white-space: nowrap; }
-.hero { background-image: var(--character-image,url('assets/base-body.webp')); }
+.hero { background-image: none; }
 .mini-avatar { position: relative; overflow: hidden; }
-.mini-character { position: absolute; width: 55px; height: 72px; left: -12px; top: -1px; background: var(--character-image,url('assets/base-body.webp')) center top/contain no-repeat; image-rendering: pixelated; }
+.mini-character { position: absolute; width: 55px; height: 72px; left: -12px; top: -1px; background: none center top/contain no-repeat; image-rendering: pixelated; }
 #player-name { max-width: 106px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 header { gap: 25px; }
 nav { gap: 20px; }
@@ -598,7 +598,7 @@ body { min-height: 100vh; background-attachment: fixed; background-repeat: no-re
 }
 #scene[data-custom-background="true"] .background-layer { background-size: cover; }
 #character > .hero { scale: var(--player-scale,1); transform-origin: center bottom; }
-.path-layer .stone { background-image: var(--stone-image,url('assets/stone.webp')); }
+.path-layer .stone { background-image: var(--stone-image,none); }
 .backup-settings, .player-scale-settings { margin: 24px 0px; padding: 20px; border: 1px solid rgb(100, 114, 91); border-radius: 12px; }
 .backup-settings > div { display: flex; gap: 12px; flex-wrap: wrap; }
 #backup-status { overflow-wrap: anywhere; }

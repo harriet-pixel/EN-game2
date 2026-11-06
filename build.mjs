@@ -9,7 +9,7 @@ const libraryCore=(await readFile('library-core.js','utf8')).replace(/^export /g
 const core=(await readFile('game-core.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const paper=(await readFile('paper-doll.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const dollUI=(await readFile('doll-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
-const app=(await readFile('app.js','utf8')).replace(/^import .*?;\n/gm,'');
+let app=(await readFile('app.js','utf8')).replace(/^import .*?;\n/gm,'');
 const gems=(await readFile('gems.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const gemUI=(await readFile('gem-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const eventUI=(await readFile('event-ui.js','utf8')).replace(/^export /gm,'');
@@ -21,18 +21,16 @@ const dialogueUI=(await readFile('dialogue-ui.js','utf8')).replace(/^import .*?;
 const imageFiles=(await readFile('image-files.js','utf8')).replace(/^export /gm,'');
 const audioFiles=(await readFile('audio-files.js','utf8')).replace(/^export /gm,'');
 const bundledMedia=(await readFile('bundled-media.js','utf8')).replace(/^export /gm,'');
+const presetBytes=await readFile('default-state.json');const presetVersion=createHash('sha256').update(presetBytes).digest('hex').slice(0,12);const coreVersions={};for(const file of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.png'])coreVersions[file]=createHash('sha256').update(await readFile('assets/'+file)).digest('hex').slice(0,12);app=app.replace('const publishedAssetVersions={};','const publishedAssetVersions='+JSON.stringify(coreVersions)+';').replace("const publishedPresetVersion='dev';",'const publishedPresetVersion='+JSON.stringify(presetVersion)+';');
 const js=`(()=>{\n${bundledMedia}\n${audioFiles}\n${imageFiles}\n${dialogue}\n${dialogueUI}\n${backupFormat}\n${backupUI}\n${sceneUI}\n${eventUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${paper}\n${dollUI}\n${app}\n})();`;
 const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
-html=html.replace('<span id="app-version">開發版</span>',`<span id="app-version">版本 ${hash.slice(0,8)}</span>`);await writeFile('dist/index.html',html);await writeFile(`dist/app.${hash}.js`,js);await writeFile(`dist/style.${cssHash}.css`,css);await copyFile('scene.svg','dist/scene.svg');await writeFile('dist/.nojekyll','');
-for(const asset of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.png','discovery.wav'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
+html=html.replace('<span id="app-version">開發版</span>',`<span id="app-version">版本 ${hash.slice(0,8)}</span>`);await writeFile('dist/index.html',html);await writeFile(`dist/app.${hash}.js`,js);await writeFile(`dist/style.${cssHash}.css`,css);await writeFile('dist/.nojekyll','');
+for(const asset of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.png'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
 await mkdir('dist/assets/fonts',{recursive:true});for(const file of ['jf-openhuninn.woff','OFL.txt'])await copyFile('assets/fonts/'+file,'dist/assets/fonts/'+file);
 const imagePackage=await mkdtemp(join(tmpdir(),'mosslight-default-images-'));try{await exportDefaultImages(imagePackage);await zipDirectory(imagePackage,'dist/downloads/EN-game2-default-images.zip')}finally{await rm(imagePackage,{recursive:true,force:true})}
 await cp('assets/defaults','dist/assets/defaults',{recursive:true});await copyFile('default-state.json','dist/default-state.json');
-// Keep the old experiment URL available, with its original isolated database.
-await mkdir('dist/fantasy-test',{recursive:true});
-const previewJs=js.replace("indexedDB.open('mosslight',1)","indexedDB.open('mosslight-fantasy-preview',1)");const previewHash=createHash('sha256').update(previewJs).digest('hex').slice(0,12);
-let preview=html.replace('href="downloads/EN-game2-default-images.zip"','href="../downloads/EN-game2-default-images.zip"').replace('href="assets/fonts/jf-openhuninn.woff"','href="../assets/fonts/jf-openhuninn.woff"').replace('href="assets/forest.webp"','href="../assets/forest.webp"').replace(`href="style.${cssHash}.css"`,`href="../style.${cssHash}.css"`).replace(`src="app.${hash}.js"`,`src="app.${previewHash}.js"`).replace('</header>','</header><div class="test-ribbon"><b>✦ 美術測試版</b><span>測試資料獨立儲存</span><a href="../">前往正式版 ↗</a></div>').replace(`版本 ${hash.slice(0,8)}`,`美術測試版 ${previewHash.slice(0,8)}`);
-await writeFile('dist/fantasy-test/index.html',preview);await writeFile(`dist/fantasy-test/app.${previewHash}.js`,previewJs);
-console.log('Built fantasy production site:',hash,'and independent /fantasy-test/');
+// Retire the separate experiment: its old URL opens the current production site.
+await mkdir('dist/fantasy-test',{recursive:true});await writeFile('dist/fantasy-test/index.html','<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../"><title>前往正式版</title><a href="../">開啟最新正式版</a></html>');
+console.log('Built current production site:',hash);

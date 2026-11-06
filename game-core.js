@@ -15,10 +15,7 @@ export function completeQuestion(state,questionId,random=Math.random){if(questio
 export function enterPortal(state){if(!readyPortal(state))return false;state.sceneIndex++;state.sceneAnswers=0;state.position=0;return true}
 export function resetProgress(state){state.lastAnswerReward=null;state.pendingChallengeId=null;state.avatar='';state.answeredQuestionIds=[];state.dailyStars=null;state.answerNotice=null;state.pendingGemFind=null;state.position=0;state.xp=0;state.stars=0;state.sceneIndex=0;state.sceneAnswers=0;if(state.doll){state.doll.pendingReward=null;state.doll.levelRewards=[];const defaults=(state.doll.assets||[]).filter(item=>item.isDefault);state.doll.unlocked=defaults.map(item=>item.id);state.doll.equipped=Object.fromEntries(['hair','eyes','clothes','pets'].map(category=>[category,defaults.find(item=>item.category===category)?.id||null]));}if(state.gems){state.gems.owned={};state.gems.mined=0;state.gems.lastFind=null}}
 
-export const characters=[
- {id:'human',name:'白裙旅人',description:'黑髮・人類女生・白色短袖長裙',file:'human.png',label:'預設造型'},
- {id:'elf',name:'紫藤精靈',description:'粉髮・精靈・紫金冒險服',file:'hero.png',label:'珍藏造型'}
-];
+export const characters=[{id:'human',name:'冒險旅人',description:'紙娃娃造型',file:'base-body.webp',label:'目前造型'}];
 export function getCharacter(id){return characters.find(c=>c.id===id)||characters[0]}
 
 export function createSceneConfigs(){return scenes.map(scene=>({name:scene.name,background:null}))}

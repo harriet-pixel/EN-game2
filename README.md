@@ -248,3 +248,9 @@ npm run build
 To intentionally regenerate the preset, run `node scripts/prepare-defaults.mjs /path/to/reviewed-backup.json` from the repository root, then review the generated diff and run tests/build. Never commit the raw backup; it duplicates the extracted media and may include private play data. The generated preset clears progression, acquired gems, avatar and pending rewards. Uploading/importing a backup in the website remains local to that browser and does not publish it.
 
 Stone and magic circle were replaced with the owner’s original `stone.webp` (2172×724) and `portal.png` (500×500) from OK.zip, without conversion or recompression.
+
+### Current startup and storage
+
+The current app uses `mosslight-current` storage and starts from the owner’s published preset. Earlier experimental browser databases are not read. It preserves progress created in this current storage across reloads. The retired `/fantasy-test/` URL redirects to production.
+
+A loading screen stays visible until the selected scene, equipped character images, stone image and font are ready. CSS no longer loads a demonstration scene or character before settings arrive. Core asset requests include content fingerprints; preset metadata is versioned and fetched without stale caching. The default discovery sound is the owner’s uploaded audio from the preset. Historical sprite PNGs, the old portal WebP, demonstration scene SVG and generated discovery WAV were removed. Uploaded files remain byte-for-byte unchanged.
