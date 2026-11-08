@@ -1956,42 +1956,14 @@ dialog.home-dialog#event-dialog { outline:none; outline-offset:0; }
 #adventure #path .home-stone-icon { display:block; width:calc(var(--home-stone-height) * .45); height:calc(var(--home-stone-height) * .45); overflow:visible; }
 #adventure #path .stone.question span { color:hsl(from var(--green) 195 100% 82%); }
 #adventure #path .stone.chance span { color:var(--gold); }
-#adventure #path .stone.fate span { color:hsl(from var(--green) 278 100% 80%); }
+#adventure #path .stone.fate span { color:hsl(from var(--green) 105 80% 75%); }
 #adventure #level { background:none; color:var(--home-accent); filter:none; }
 /* Aura is centered on the non-pet silhouette, with no outer dark ring or hard edge. */
 #adventure .home-hero-aura { left:var(--home-aura-x,50%); top:var(--home-aura-y,50%); translate:-50% -50%; background:radial-gradient(ellipse at center,color-mix(in srgb,var(--ink) 13%,transparent) 0%,color-mix(in srgb,var(--ink) 8%,transparent) 35%,color-mix(in srgb,var(--ink) 6%,transparent) 55%,transparent 70%); pointer-events:none; filter:none; box-shadow:none; }
-#adventure #scene-roll .home-dice-shadow { position:absolute; left:10%; bottom:-8px; width:80%; height:8px; background:radial-gradient(ellipse,color-mix(in srgb,var(--bg) 65%,transparent),transparent 72%); border-radius:50%; pointer-events:none; }
-#adventure #scene-roll .home-dice-idle-frame, #adventure #scene-roll .home-dice-fixed-frame { position:absolute; inset:3%; border:1px solid var(--gold); border-radius:14%; opacity:.6; pointer-events:none; }
-#adventure #scene-roll .home-dice-fixed-frame { inset:14%; border-color:var(--home-accent); opacity:0; }
-#adventure #scene-roll:not(:disabled):hover .home-dice-idle-frame, #adventure #scene-roll:focus-visible .home-dice-idle-frame { border-color:var(--home-accent); }
 @media(max-width:700px) {
  #adventure #scene > #scene-progress { position:absolute; top:var(--home-mobile-progress-top,168px); bottom:auto; left:50%; translate:-50%; margin:0; max-width:calc(100% - 24px); padding-inline:4px; white-space:nowrap; }
 }
-@media(prefers-reduced-motion:no-preference) {
- #adventure #scene-roll.home-dice-button { transition:transform 150ms; }
- #adventure #scene-roll .home-dice-shadow { transition:transform 150ms; }
- #adventure #scene-roll .home-dice-idle-frame { transition:border-color 150ms; }
- #adventure #scene-roll.home-dice-idle .home-dice-idle-frame { animation:homeDiceIdle 800ms ease-in-out 2; will-change:opacity; }
- #adventure #scene-roll.home-dice-button:not(:disabled):hover, #adventure .home-roll-slot:has(#home-roll:not(:disabled):hover) #scene-roll { transform:translateY(-2px); }
- #adventure #scene-roll.home-dice-button:not(:disabled):hover .home-dice-shadow, #adventure .home-roll-slot:has(#home-roll:not(:disabled):hover) .home-dice-shadow { transform:translateY(2px) scaleX(.9); }
- #adventure #scene-roll.home-dice-button:not(:disabled):active, #adventure .home-roll-slot:has(#home-roll:not(:disabled):active) #scene-roll { transform:scale(.94); transition-duration:100ms; }
- #adventure #scene-roll.home-dice-land { animation:homeDiceLand 220ms ease-out; will-change:transform; }
- #adventure #scene-roll.home-dice-land .home-dice-shadow { animation:homeDiceShadow 220ms ease-out; will-change:transform; }
- #adventure #scene-roll.home-dice-fixed .home-dice-fixed-frame { animation:homeDiceFixed 150ms ease-out; will-change:opacity; }
- #adventure #movement-status.home-dice-movement { animation:homeDiceMoveIn 150ms ease-out 100ms both; will-change:opacity; }
- @keyframes homeDiceIdle { 0%,100% { opacity:.6; } 50% { opacity:1; } }
- @keyframes homeDiceLand { 0% { transform:translateY(-6px); } 45% { transform:translateY(0); } 70% { transform:translateY(-2px); } 100% { transform:translateY(0); } }
- @keyframes homeDiceShadow { 0% { transform:translateY(6px) scaleX(.8); } 45% { transform:translateY(0) scaleX(1); } 70% { transform:translateY(2px) scaleX(.94); } 100% { transform:translateY(0) scaleX(1); } }
- @keyframes homeDiceFixed { from { opacity:1; } to { opacity:0; } }
- @keyframes homeDiceMoveIn { from { opacity:0; } to { opacity:1; } }
-}
-@media(prefers-reduced-motion:reduce) {
- #adventure #scene-roll.is-rolling .dice { animation:none !important; }
- #adventure #scene-roll.is-rolling .dice::before { mask-image:var(--home-dice-static-face,var(--dice-face)); }
- #adventure #scene-roll.home-dice-button, #adventure #scene-roll .home-dice-shadow, #adventure #scene-roll .home-dice-idle-frame { transition:none; animation:none; }
-}
 
-#adventure .home-roll-slot:has(#home-roll:not(:disabled):hover) .home-dice-idle-frame { border-color:var(--home-accent); }
-@media(prefers-reduced-motion:reduce) {
- #adventure #home-roll, body.home-active #movement-status { transition:none; animation:none; }
-}
+/* Hide home scrollbars without clipping content or disabling wheel/touch/keyboard access. */
+html:has(body.home-active), body.home-active, body.home-active *, dialog.home-dialog, dialog.home-dialog * { scrollbar-width:none !important; }
+html:has(body.home-active)::-webkit-scrollbar, body.home-active::-webkit-scrollbar, body.home-active *::-webkit-scrollbar, dialog.home-dialog::-webkit-scrollbar, dialog.home-dialog *::-webkit-scrollbar { display:none; width:0; height:0; }
