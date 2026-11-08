@@ -55,7 +55,7 @@ npm run build
 - `assets/portal.png`：魔法陣。
 - `assets/forest.webp`：預設背景。
 - `assets/defaults/`：配件、場景、寶石與音檔，以內容雜湊命名，重複檔案共用。
-- `assets/fonts/`：jf open 粉圓字型與授權。
+- 網站字型使用 Google Fonts Huninn（display=swap）；`assets/fonts/OFL.txt` 保留原字型授權記錄。
 
 所有預設圖片與音檔保留提供的原始格式與內容，不轉換、不重新壓縮。啟動時等目前場景、角色、石階與字型準備好後才顯示探險畫面。只有進入相關功能時才載入其餘素材。
 

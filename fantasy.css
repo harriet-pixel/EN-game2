@@ -974,8 +974,7 @@ html { scrollbar-gutter: stable; }
   #gem-discovery .mystery-words span { animation: auto ease 0s 1 normal none running none; }
 }
 .gem-color-heading button[data-delete-gem-color] { margin-left: auto; font-size: calc(12px * var(--font-scale,1)); padding: 8px 12px; }
-@font-face { font-family: "JF Open Huninn"; src: url("assets/fonts/jf-openhuninn.woff") format("woff"); font-style: normal; font-weight: 400; font-display: swap; }
-body { font-family: "JF Open Huninn", "Noto Sans TC", sans-serif; }
+body { font-family: "Huninn", "Noto Sans TC", sans-serif; }
 .player-hud { align-items: flex-start; }
 .player-hud .scene-dice, .player-hud .scene-dice .dice { width: calc(var(--hud-height,96px) * 3); height: calc(var(--hud-height,96px) * 3); }
 .player-hud .scene-dice .dice { font-size: calc(var(--hud-height,96px) * 2.7); }

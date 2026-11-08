@@ -28,7 +28,7 @@ const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
 html=html.replace('<span id="app-version">開發版</span>',`<span id="app-version">版本 ${hash.slice(0,8)}</span>`);await writeFile('dist/index.html',html);await writeFile(`dist/app.${hash}.js`,js);await writeFile(`dist/style.${cssHash}.css`,css);await writeFile('dist/.nojekyll','');
 for(const asset of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.png'])await copyFile(`assets/${asset}`,`dist/assets/${asset}`);
-await mkdir('dist/assets/fonts',{recursive:true});for(const file of ['jf-openhuninn.woff','OFL.txt'])await copyFile('assets/fonts/'+file,'dist/assets/fonts/'+file);
+await mkdir('dist/assets/fonts',{recursive:true});await copyFile('assets/fonts/OFL.txt','dist/assets/fonts/OFL.txt');
 const imagePackage=await mkdtemp(join(tmpdir(),'mosslight-default-images-'));try{await exportDefaultImages(imagePackage);await zipDirectory(imagePackage,'dist/downloads/EN-game2-default-images.zip')}finally{await rm(imagePackage,{recursive:true,force:true})}
 await cp('assets/defaults','dist/assets/defaults',{recursive:true});await copyFile('default-state.json','dist/default-state.json');
 // Retire the separate experiment: its old URL opens the current production site.
