@@ -1967,3 +1967,6 @@ dialog.home-dialog#event-dialog { outline:none; outline-offset:0; }
 /* Hide home scrollbars without clipping content or disabling wheel/touch/keyboard access. */
 html:has(body.home-active), body.home-active, body.home-active *, dialog.home-dialog, dialog.home-dialog * { scrollbar-width:none !important; }
 html:has(body.home-active)::-webkit-scrollbar, body.home-active::-webkit-scrollbar, body.home-active *::-webkit-scrollbar, dialog.home-dialog::-webkit-scrollbar, dialog.home-dialog *::-webkit-scrollbar { display:none; width:0; height:0; }
+/* The two adventure draw panels retain the existing shared control layout. */
+#settings-accessories [data-drop-error] { color:var(--ui-danger); }
+#settings-accessories .accessory-drop-settings { min-width:0; }
