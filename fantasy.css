@@ -1590,3 +1590,8 @@ body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.
 #library .text-question-card .question-card-content { padding:16px 16px 16px 40px; }
 #library .text-question-card > input { top:18px; }
 #library .text-question-card h3 { margin:0 0 12px; font-size:calc(.875rem * var(--font-scale,1)); line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+
+/* Viewport notifications stay independent of the character and map camera. */
+#movement-status { position:fixed; left:50vw; top:50dvh; translate:-50% -50%; z-index:90; max-width:calc(100vw - 24px); font-size:calc(1.25rem * var(--font-scale,1)); line-height:1.6; letter-spacing:.08em; color:var(--ui-gold); }
+#gem-discovery .mystery-words { position:fixed; left:50vw; top:40dvh; translate:-50% -50%; width:max-content; max-width:calc(100vw - 24px); text-align:center; white-space:normal; font-size:calc(clamp(1.25rem,4vw,3rem) * var(--font-scale,1)); color:var(--ui-gold); }
+#gem-discovery .mystery-words span { animation:none; }

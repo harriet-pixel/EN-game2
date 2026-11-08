@@ -1,7 +1,7 @@
 import {isWebPFile,readWebPData} from './image-files.js';
 import {dollCategories,normalizeDollTransform,equipDollItem,claimPortalCard,scaleDollItem,setDollDefault,applyDollDefaults,dollVisualLayers,wardrobeItems,applyDollLayout,commonDollFrame,accessoryCategoryChances,normalizeCategoryWeights,dollBaseSpec,dollBaseCanvas,ensureDollDefaults,mandatoryDollCategories,dollViewportFrame} from './paper-doll.js';
 
-export function positionMovementStatus(root=document){const status=root.querySelector('#movement-status'),hero=root.querySelector('#character>.hero'),scene=root.querySelector('#scene');if(!status||!hero||!scene||status.classList.contains('hidden'))return;const h=hero.getBoundingClientRect(),s=scene.getBoundingClientRect(),b=status.getBoundingClientRect();if(!s.width)return;status.style.left=Math.max(b.width/2+12,Math.min(h.left+h.width/2-s.left,s.width-b.width/2-12))+'px';status.style.top=Math.max(8,h.top-s.top-b.height-14)+'px'}
+export function positionMovementStatus(root=document){const status=root.querySelector('#movement-status');if(!status)return;status.style.removeProperty('left');status.style.removeProperty('top')}
 
 export function layoutCharacterScene(root=document){const Q=s=>root.querySelector(s);if(!Q('#character>.hero'))return;
   const hero=Q('#character>.hero'),parent=hero.parentElement,bubble=Q('#character>.bubble');Q('.player-hud').style.setProperty('--hud-height',Q('.player-card').offsetHeight+'px');

@@ -75,7 +75,7 @@ async function panCamera(){
 }
 function setDiceFace(value){$('#dice').textContent=['⚀','⚁','⚂','⚃','⚄','⚅'][value-1];$('#dice').dataset.face=value}
 let movementFrame=0;
-function trackMovementStatus(){positionMovementStatus(document);if(!$('#movement-status').classList.contains('hidden'))movementFrame=requestAnimationFrame(trackMovementStatus)}
+function trackMovementStatus(){positionMovementStatus(document)}
 async function rollDice(){if(document.body.dataset.ready!=='true')return;if(busy||document.querySelector('dialog[open]')||$('main').inert)return;const pending=getPendingChallenge(state)||current;if(pending){openChallenge(pending);return}hideSceneIntro();if(activeQuestions(state).length===0&&!readyPortal(state)){toast(state.repeatQuestions===false?'已完成啟用題庫中的所有題目，可清空已作答紀錄或允許重複出題。':'目前沒有啟用的題目，請在冒險設定啟用有題目的資料夾。');showPage('settings-page');return}busy=true;$('#scene-roll').disabled=true;$('#scene-roll').classList.add('is-rolling');$('#reset').disabled=true;$('#settings').disabled=true;try{
  for(let i=0;i<9;i++){setDiceFace(1+Math.floor(Math.random()*6));await delay(75)}
  const portalTrip=readyPortal(state);portalDestination=portalTrip?state.position+1:null;let n=1+Math.floor(Math.random()*6);setDiceFace(n);$('#scene-roll').classList.remove('is-rolling');const steps=portalTrip?1:n;$('#character').classList.add('walking');$('#movement-status').textContent=portalTrip?'前進 1 格 · 前往魔法陣':`前進 ${n} 格`;$('#movement-status').classList.remove('hidden');trackMovementStatus();
