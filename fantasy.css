@@ -1681,8 +1681,8 @@ body[data-appearance] #adventure #character > .bubble.bubble-side::after { borde
 #adventure .home-guide small { color:var(--home-muted); font-size:inherit; }
 #adventure .home-legend { margin-left:auto; color:var(--home-muted); }
 #adventure footer { display:flex; justify-content:space-between; padding:16px 0 0; color:var(--home-muted); font-size:calc(.75rem * var(--font-scale,1)); }
-body.home-active .site-sidebar { width:220px; height:100dvh; overflow-y:auto; }
-body.home-active #site-navigation .nav { min-height:44px; border-radius:12px; }
+body.home-active .site-sidebar { width:var(--sidebar-width); height:100dvh; overflow-y:auto; }
+body.home-active #site-navigation .nav { min-height:54px; border-radius:9px; }
 body.home-active #site-navigation .nav.active { background:color-mix(in srgb,var(--home-accent) 12%,transparent); color:var(--home-accent); border-color:transparent; }
 body.home-active #site-navigation .nav.active::after { width:3px; background:var(--home-accent); }
 body.home-active .site-sidebar button:disabled { opacity:.45; cursor:not-allowed; }
@@ -1786,7 +1786,7 @@ dialog.home-dialog#image-viewer { width:calc(100vw - 40px) !important; height:ca
 #adventure .home-status .overview-progress { flex:0 0 4px; min-height:4px; max-height:4px; margin:4px 0 0; padding:0; width:100%; }
 #adventure .home-stars small { display:flex; gap:.35em; flex-wrap:wrap; }
 #adventure .home-stars #overview-today { display:inline; margin:0; }
-@media (min-width:1001px) { body.home-active { --sidebar-width:220px; } }
+/* Home uses the shared wardrobe sidebar width at every breakpoint. */
 #adventure .home-stars #home-star-value, #adventure .home-stars .home-star-symbol { display:inline; font:inherit; }
 dialog.home-dialog #answer-actions button { flex:0 0 auto; width:auto; }
 #adventure .player-hud { --dice-size:clamp(44px,calc(320px * var(--home-stage-scale) * var(--dice-scale,1)),132px); }
@@ -1830,3 +1830,59 @@ body.home-active > .site-sidebar { position:sticky; top:0; grid-column:1; grid-r
 body.home-active > main { grid-column:2; grid-row:1; width:100%; margin:0; min-width:0; }
 
 #info:not(.home-dialog) > .home-modal-content, #info:not(.home-dialog) > .home-modal-footer { display:contents; }
+
+/* Second home polish: original static rainbow colors, no animated effects. */
+#adventure, dialog.home-dialog {
+ --home-rainbow:linear-gradient(90deg,rgb(255,141,190),rgb(255,228,165),rgb(160,230,205),rgb(158,207,255),rgb(197,164,239));
+ --home-rainbow-frame:conic-gradient(rgb(250,135,158),rgb(255,202,124),rgb(251,239,155),rgb(154,232,188),rgb(143,213,255),rgb(179,163,246),rgb(237,161,237),rgb(250,135,158));
+}
+#adventure #level { color:transparent; filter:none; }
+body[data-appearance] #adventure .xp-track i, #adventure .overview-progress i { background:var(--home-rainbow); }
+#adventure .home-stars #home-star-value { background:var(--home-rainbow); background-clip:text; color:transparent; }
+#adventure .home-portal-pill { width:max-content; max-width:calc(100% - 330px); padding:8px clamp(4px,1vw,16px); white-space:nowrap; font-size:calc(1rem * var(--font-scale,1) * var(--home-portal-fit,1)); line-height:1.4; }
+#adventure #path { left:3%; right:3%; gap:calc(7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); }
+#adventure #path .stone { flex:0 0 calc(100% / var(--home-stage-columns,8) - 7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); background-size:100% calc(64px / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); background-position:center calc(-64px * var(--home-stone-image-top,.2942) / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); }
+#adventure #path .stone span { font-size:calc(2rem * var(--font-scale,1) * var(--home-stone-scale,1)) !important; display:inline-grid; place-items:center; width:1.3em; height:1.3em; aspect-ratio:1; padding:0; margin-top:2px; line-height:1; box-sizing:border-box; color:color-mix(in srgb,var(--green) 35%,var(--ink)); text-shadow:0 0 6px color-mix(in srgb,var(--green) 40%,transparent); }
+#adventure #path .stone.chance span { color:var(--gold); text-shadow:0 0 6px color-mix(in srgb,var(--gold) 40%,transparent); }
+#adventure #path .stone.fate span { color:color-mix(in hsl longer hue,var(--green) 35%,var(--ink)); text-shadow:0 0 6px color-mix(in srgb,var(--ink) 30%,transparent); }
+#adventure #path .stone.portal span { display:none; }
+#adventure #home-portal-entry { position:absolute; top:calc(82% - 112px); width:112px; height:112px; padding:0; border:1px solid transparent; border-radius:50%; background:transparent; transform:translateX(-50%); pointer-events:auto; cursor:pointer; z-index:5; }
+#adventure #home-portal-entry .portal-marker { position:static; width:100%; height:100%; transform:none; animation:none; filter:none; }
+#adventure #home-portal-entry:hover:not(:disabled), #adventure #home-portal-entry:focus-visible { border-color:var(--home-accent); background:color-mix(in srgb,var(--green) 15%,transparent); outline:2px solid var(--home-accent); outline-offset:3px; }
+#adventure #home-portal-entry:disabled { cursor:not-allowed; }
+#adventure .home-portal-ready #scene-roll { opacity:.45; cursor:not-allowed; }
+/* Match wardrobe navigation geometry, preserving the home active/disabled colors. */
+body.home-active #site-navigation { gap:9px; }
+dialog.home-dialog#gem-detail.home-gem-found #gem-detail-label { display:none; }
+dialog.home-dialog#gem-detail.home-gem-found #gem-discovery-title { color:var(--gold); font-size:calc(1.75rem * var(--font-scale,1)); line-height:1.4; margin:4px 0 12px; }
+body[data-appearance] dialog.home-dialog#portal-reward .portal-card {
+ border:3px solid transparent !important;
+ background:repeating-linear-gradient(45deg,transparent 0 14px,color-mix(in srgb,var(--ink) 5%,transparent) 14px 15px) padding-box,linear-gradient(var(--home-card),var(--bg)) padding-box,var(--home-rainbow-frame) border-box !important;
+ transition:transform 150ms; isolation:isolate;
+}
+dialog.home-dialog#portal-reward .portal-card::before { content:''; position:absolute; inset:8px; border:1px solid var(--gold); border-radius:8px; pointer-events:none; }
+dialog.home-dialog#portal-reward .portal-card::after { content:''; position:absolute; inset:14px; border:2px solid var(--gold); clip-path:polygon(0 0,12px 0,12px 2px,2px 2px,2px 12px,0 12px,0 0,100% 0,100% 12px,calc(100% - 2px) 12px,calc(100% - 2px) 2px,calc(100% - 12px) 2px,calc(100% - 12px) 0,100% 0,100% 100%,calc(100% - 12px) 100%,calc(100% - 12px) calc(100% - 2px),calc(100% - 2px) calc(100% - 2px),calc(100% - 2px) calc(100% - 12px),100% calc(100% - 12px),100% 100%,0 100%,0 calc(100% - 12px),2px calc(100% - 12px),2px calc(100% - 2px),12px calc(100% - 2px),12px 100%); pointer-events:none; }
+dialog.home-dialog#portal-reward .portal-card:not(.revealed):nth-child(1) { transform:rotate(-2deg); }
+dialog.home-dialog#portal-reward .portal-card:not(.revealed):nth-child(2) { transform:translateY(-6px); }
+dialog.home-dialog#portal-reward .portal-card:not(.revealed):nth-child(3) { transform:rotate(2deg); }
+dialog.home-dialog#portal-reward .portal-card:hover:not(:disabled) { transform:translateY(-8px); border-color:transparent !important; }
+dialog.home-dialog#portal-reward .card-rune { position:relative; display:grid; place-items:center; width:70%; aspect-ratio:1; border:1px solid var(--gold); border-radius:50%; font-size:calc(2.75rem * var(--font-scale,1)); margin:0; }
+dialog.home-dialog#portal-reward .card-rune::before, dialog.home-dialog#portal-reward .card-rune::after { content:''; position:absolute; inset:8px; border:1px solid var(--gold); border-radius:50%; }
+dialog.home-dialog#portal-reward .card-rune::after { inset:16px; }
+dialog.home-dialog#portal-reward .portal-card:not(.revealed) > small { position:absolute; bottom:22px; color:var(--gold); font-size:calc(.75rem * var(--font-scale,1)); }
+dialog.home-dialog#portal-reward .portal-card.revealed { padding:20px 18px; }
+dialog.home-dialog#portal-reward .reward-category { color:var(--gold); background:color-mix(in srgb,var(--gold) 8%,var(--bg)); border:1px solid var(--line); border-radius:20px; padding:4px 10px; margin:0 0 4px; letter-spacing:0; }
+dialog.home-dialog#portal-reward .reward-accessory-preview { position:relative; border:1px solid var(--line); border-radius:10px; max-width:180px; flex-shrink:1; min-height:0; }
+dialog.home-dialog#portal-reward .reward-accessory-preview::after { content:''; position:absolute; bottom:4px; left:10%; width:80%; height:18%; border-radius:50%; background:radial-gradient(ellipse,color-mix(in srgb,var(--green) 15%,transparent),transparent 70%); pointer-events:none; }
+dialog.home-dialog#portal-reward .home-reward-name { font-size:calc(.875rem * var(--font-scale,1)); flex-shrink:0; }
+dialog.home-dialog#portal-reward .portal-card.revealed > small { align-self:stretch; color:var(--gold); background:color-mix(in srgb,var(--green) 18%,var(--bg)); padding:5px 2px; margin-top:4px; letter-spacing:0; }
+@media(max-width:1000px) {
+ #adventure .home-portal-pill { max-width:calc(100% - 32px); width:max-content; }
+ body.home-active #site-navigation .nav { min-height:54px; }
+}
+@media(max-width:700px) {
+ #adventure #path .stone span { font-size:calc(1.5rem * var(--font-scale,1) * var(--home-stone-scale,1)) !important; }
+ dialog.home-dialog#portal-reward .portal-card.revealed { padding:20px 10px; }
+}
+
+dialog.home-dialog#portal-reward .portal-cards { padding:8px; margin:12px 0; }
