@@ -1247,7 +1247,7 @@ body[data-appearance="ice-lake"] .appearance-options label:has(input:checked) { 
 
 body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.dialogue-setting-card p,.settings-section small) { color:#C6CEEC; }
 .wardrobe-desktop { display: none; }
-@media (min-width: 1001px) {
+@media (min-width: 0px) {
  body[data-appearance] #wardrobe-view {
   --wardrobe-text-size: calc(.75rem * var(--font-scale,1));
   max-width: 1400px; margin-inline: auto; color: var(--ink);
@@ -1346,7 +1346,7 @@ body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.
 /* Desktop atelier: all surface and interaction styling is isolated here. */
 .atelier-modal-footer { display: contents; }
 .atelier-modal-footer > span, .atelier-modal-footer > [data-atelier-cancel] { display: none; }
-@media (min-width:1001px) {
+@media (min-width:0px) {
  .atelier-mounted > :not(#atelier-view) { display:none !important; }
  body[data-appearance] #atelier-view {
   --atelier-side-width:clamp(260px,18vw,300px); --atelier-footer-space:92px;
@@ -1494,18 +1494,86 @@ body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.
   #atelier-view .atelier-footer button { padding-inline:8px; }
  }
 }
-@media (min-width:1001px) {
+@media (min-width:0px) {
  body[data-appearance] #atelier-view .atelier-swatches button[data-atelier=dark] { background:var(--bg); }
  body[data-appearance] #atelier-view .atelier-swatches button[data-atelier=checker] { background:repeating-conic-gradient(var(--atelier-check-a) 0% 25%,var(--atelier-check-b) 0% 50%) 0 / 8px 8px; }
  body[data-appearance] #atelier-view .atelier-swatches button[data-atelier=white] { background:var(--ink); }
  #atelier-view #accessory-form.hidden { display:none !important; }
 }
 
-@media (min-width:1001px) {
+@media (min-width:0px) {
  body[data-appearance] dialog.atelier-modal button.close { background:transparent; border:0; box-shadow:none; }
 }
 
-@media (min-width:1001px) {
+@media (min-width:0px) {
  #atelier-view .atelier-check-hit { position:absolute; top:0; left:0; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:color-mix(in srgb,var(--bg) 65%,transparent); border-radius:8px; }
  #atelier-view .atelier-check-hit input { position:static; width:22px; height:22px; margin:0; box-shadow:none; }
+}
+
+/* Reuse the wardrobe and atelier components on phones and tablets. */
+.atelier-touch { display:none; }
+@media (max-width:1000px) {
+ body[data-appearance] #wardrobe-view .wardrobe-layout { grid-template-columns:minmax(0,1fr); gap:20px; }
+ body[data-appearance] #wardrobe-view .wardrobe-preview-panel { position:static !important; max-width:320px; width:100%; margin-inline:auto; }
+ body[data-appearance] #wardrobe-view #wardrobe-doll-preview { max-height:none; }
+ body[data-appearance] #wardrobe-view .paper-collection { height:auto; min-height:0; overflow:visible; }
+ #wardrobe-view #paper-items { max-height:none; overflow:visible; padding:0 12px 28px; }
+ #wardrobe-view .wardrobe-item-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,calc(6.75rem * var(--font-scale,1))),1fr)); gap:12px; }
+ #wardrobe-view .wardrobe-actions { flex-wrap:wrap; gap:8px; }
+ #wardrobe-view .wardrobe-actions button { min-height:44px; }
+ #wardrobe-view #doll-category-tabs button { min-height:52px; }
+ #wardrobe-view .doll-collection-note { padding:12px; }
+ body[data-appearance] #wardrobe-settings-dialog { width:calc(100vw - 24px); max-height:calc(100dvh - 24px); padding:24px 16px; }
+ #wardrobe-settings-dialog .preview-mode-options { grid-template-columns:1fr; }
+ #wardrobe-settings-dialog .preview-mode-options + small { max-width:none; }
+ body[data-appearance] #atelier-view { min-width:0; }
+ #atelier-view .atelier-heading { flex-wrap:wrap; gap:8px; }
+ #atelier-view .atelier-heading p { order:3; flex-basis:100%; }
+ #atelier-view .atelier-heading h1 { font-size:calc(1rem * var(--font-scale,1)); white-space:normal; }
+ #atelier-view #atelier-back-slot { margin-left:0; }
+ #atelier-view #editor-category-picker button { padding-inline:3px; gap:4px; height:auto; min-height:44px; flex-wrap:wrap; }
+ #atelier-view .atelier-hint { align-items:flex-start; line-height:1.7; }
+ #atelier-view .atelier-workbench,
+ #atelier-view.atelier-left-closed .atelier-workbench,
+ #atelier-view.atelier-right-closed .atelier-workbench,
+ #atelier-view.atelier-left-closed.atelier-right-closed .atelier-workbench { grid-template-columns:minmax(0,1fr); gap:16px; }
+ body[data-appearance] #atelier-view .atelier-strip, body[data-appearance] #atelier-view .atelier-properties { position:static; height:auto; min-height:0; padding:12px; padding-bottom:16px; width:100%; }
+ #atelier-view .atelier-strip { max-height:300px; }
+ #atelier-view .atelier-filmstrip, #atelier-view.atelier-left-closed .atelier-filmstrip { grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); min-height:100px; }
+ #atelier-view.atelier-left-closed .atelier-filename, #atelier-view.atelier-left-closed .atelier-upload-help, #atelier-view.atelier-left-closed .atelier-search { display:block; }
+ #atelier-view.atelier-left-closed #atelier-upload-slot button, #atelier-view.atelier-left-closed [data-atelier=select] { font-size:inherit; width:auto; padding:6px 10px; }
+ #atelier-view.atelier-left-closed #atelier-upload-slot button::before, #atelier-view.atelier-left-closed [data-atelier=select]::before { content:none; }
+ #atelier-view.atelier-left-closed.atelier-selecting .atelier-strip { width:100%; }
+ #atelier-view [data-atelier=left], #atelier-view [data-atelier=right] { display:none; }
+ #atelier-view.atelier-right-closed .atelier-property-content { display:block; }
+ #atelier-view .atelier-canvas-column { min-width:0; position:static; }
+ #atelier-view #atelier-stage-slot { width:100%; min-width:0; }
+ #atelier-view .atelier-stage-surround { padding:0; }
+ body[data-appearance] #atelier-view #doll-edit-stage { min-width:0; min-height:0; max-height:none; width:100%; }
+ #atelier-view .atelier-toolbar { gap:8px; }
+ #atelier-view .atelier-tool-group { flex-wrap:wrap; min-width:0; max-width:100%; }
+ #atelier-view .atelier-toolbar button { height:44px; min-height:44px; }
+ #atelier-view .atelier-swatches button { width:32px; height:32px; min-height:32px; }
+ #atelier-view .atelier-touch { display:block; }
+ #atelier-view .atelier-status { gap:8px; }
+ #atelier-view .atelier-footer { padding:8px 10px calc(8px + env(safe-area-inset-bottom)); gap:8px; }
+ #atelier-view #atelier-save-status { flex-basis:100%; }
+ #atelier-view #atelier-footer-actions { flex-wrap:wrap; gap:6px; width:100%; }
+ #atelier-view .atelier-footer button { flex:1 0 auto; padding-inline:8px; }
+ #atelier-view #delete-accessory { margin-left:0; }
+ body[data-appearance] dialog.atelier-modal { width:calc(100vw - 24px) !important; max-height:calc(100dvh - 24px); padding:20px 14px; }
+ .atelier-modal .atelier-modal-footer { flex-wrap:wrap; bottom:-20px; }
+ .atelier-modal .atelier-modal-footer > span { flex-basis:100%; }
+ .atelier-delete-dialog .atelier-modal-footer button { width:auto; flex:1; }
+ .atelier-modal #bulk-apply-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); }
+ .atelier-modal .bulk-selection-tools { display:flex; flex-direction:column; align-items:stretch; gap:10px; }
+ .atelier-modal .bulk-file-card { min-width:0; }
+ .atelier-modal .bulk-file-card strong { overflow-wrap:anywhere; }
+}
+@media (pointer:coarse) {
+ #atelier-view .doll-resize-handle { width:24px; height:24px; min-height:24px; right:-12px; bottom:-12px; }
+ #atelier-view .atelier-status button { min-height:44px; }
+}
+@media (max-width:1000px) {
+ body[data-appearance] #atelier-view #editor-category-picker button { height:auto; min-height:68px; align-content:center; }
 }
