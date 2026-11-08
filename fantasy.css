@@ -1584,3 +1584,9 @@ body[data-appearance="ice-lake"] :is(small,.storage-note,.doll-collection-note,.
 #challenge .typed-question-prompt { font-size:calc(1.25rem * var(--font-scale,1)); line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere; }
 #challenge .typed-question-answers { display:grid; gap:12px; }
 #challenge .typed-question-answers button { font-size:calc(1.125rem * var(--font-scale,1)); line-height:1.6; padding:12px 16px; text-align:left; white-space:normal; overflow-wrap:anywhere; }
+
+/* Text questions use the same card shell without reserving an image area. */
+#question-grid { align-items:start; }
+#library .text-question-card .question-card-content { padding:16px 16px 16px 40px; }
+#library .text-question-card > input { top:18px; }
+#library .text-question-card h3 { margin:0 0 12px; font-size:calc(.875rem * var(--font-scale,1)); line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
