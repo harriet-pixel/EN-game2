@@ -1970,3 +1970,6 @@ html:has(body.home-active)::-webkit-scrollbar, body.home-active::-webkit-scrollb
 /* The two adventure draw panels retain the existing shared control layout. */
 #settings-accessories [data-drop-error] { color:var(--ui-danger); }
 #settings-accessories .accessory-drop-settings { min-width:0; }
+/* Relocated gem controls fit the adventure settings column and retain hidden uploads. */
+#settings-gems #gem-shape-settings { grid-template-columns:repeat(auto-fit,minmax(min(100%,8em),1fr)); }
+#settings-gems input[hidden], #gem-audio-settings input[hidden] { display:none !important; }
