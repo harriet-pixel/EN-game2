@@ -1838,7 +1838,7 @@ body.home-active > main { grid-column:2; grid-row:1; width:100%; margin:0; min-w
 }
 #adventure #level { color:transparent; filter:none; }
 body[data-appearance] #adventure .xp-track i, #adventure .overview-progress i { background:var(--home-rainbow); }
-#adventure .home-stars #home-star-value { background:var(--home-rainbow); background-clip:text; color:transparent; }
+#adventure .home-stars #home-star-value { background:none; color:var(--gold); }
 #adventure .home-portal-pill { width:max-content; max-width:calc(100% - 330px); padding:8px clamp(4px,1vw,16px); white-space:nowrap; font-size:calc(1rem * var(--font-scale,1) * var(--home-portal-fit,1)); line-height:1.4; }
 #adventure #path { left:3%; right:3%; gap:calc(7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); }
 #adventure #path .stone { flex:0 0 calc(100% / var(--home-stage-columns,8) - 7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); background-size:100% calc(64px / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); background-position:center calc(-64px * var(--home-stone-image-top,.2942) / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); }
@@ -1846,7 +1846,7 @@ body[data-appearance] #adventure .xp-track i, #adventure .overview-progress i { 
 #adventure #path .stone.chance span { color:var(--gold); text-shadow:0 0 6px color-mix(in srgb,var(--gold) 40%,transparent); }
 #adventure #path .stone.fate span { color:color-mix(in hsl longer hue,var(--green) 35%,var(--ink)); text-shadow:0 0 6px color-mix(in srgb,var(--ink) 30%,transparent); }
 #adventure #path .stone.portal span { display:none; }
-#adventure #home-portal-entry { position:absolute; top:calc(82% - 112px); width:112px; height:112px; padding:0; border:1px solid transparent; border-radius:50%; background:transparent; transform:translateX(-50%); pointer-events:auto; cursor:pointer; z-index:5; }
+#adventure #home-portal-entry { position:absolute; top:calc(82% - var(--home-portal-size,112px)); width:var(--home-portal-size,112px); height:var(--home-portal-size,112px); padding:0; border:1px solid transparent; border-radius:50%; background:transparent; transform:translateX(-50%); pointer-events:auto; cursor:pointer; z-index:5; }
 #adventure #home-portal-entry .portal-marker { position:static; width:100%; height:100%; transform:none; animation:none; filter:none; }
 #adventure #home-portal-entry:hover:not(:disabled), #adventure #home-portal-entry:focus-visible { border-color:var(--home-accent); background:color-mix(in srgb,var(--green) 15%,transparent); outline:2px solid var(--home-accent); outline-offset:3px; }
 #adventure #home-portal-entry:disabled { cursor:not-allowed; }
@@ -1886,3 +1886,7 @@ dialog.home-dialog#portal-reward .portal-card.revealed > small { align-self:stre
 }
 
 dialog.home-dialog#portal-reward .portal-cards { padding:8px; margin:12px 0; }
+
+/* Collection bands span the entire track; only the earned portion is revealed. */
+#adventure .overview-progress i { width:100%; background:linear-gradient(90deg,rgb(250,135,158) 0%,rgb(255,202,124) 20%,rgb(251,239,155) 40%,rgb(154,232,188) 60%,rgb(143,213,255) 80%,rgb(179,163,246) 100%); clip-path:inset(0 calc(100% - var(--home-collected,0%)) 0 0); }
+#adventure #path .stone.chance span { --home-chance-neon:hsl(from var(--gold) calc(h - 35) 100% 75%); color:var(--home-chance-neon); text-shadow:0 0 6px color-mix(in srgb,var(--home-chance-neon) 55%,transparent); }
