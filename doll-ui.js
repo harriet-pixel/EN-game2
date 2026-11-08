@@ -38,7 +38,7 @@ export async function readDollFile(file,withSize=false){
 }
 export function createDollUI(context){
  const Q=s=>document.querySelector(s),QA=s=>[...document.querySelectorAll(s)];const {getState,save,renderGame,toast,assetUrl,navigate,finishPortal}=context;
- let atelier=null,homeGroundKey='',homeStoneSource='';
+ let atelier=null,homeGroundKey='',homeStoneSource='',homeBodyKey='';
  const compositeCache=new WeakMap();let category='hair',editorCategory=null,draft=null,dirty=false,drag=null;
  const state=()=>getState(),doll=()=>state().doll;
  const text=(tag,value,cls)=>{const el=document.createElement(tag);el.textContent=value;if(cls)el.className=cls;return el};
@@ -55,6 +55,9 @@ export function createDollUI(context){
   // Visual feet include the worn outfit; reuse cached alpha bounds without changing transforms.
   const outfit=doll().assets.find(a=>a.id===doll().equipped.clothes&&doll().unlocked.includes(a.id)),parts=outfit?dollVisualLayers(outfit):[],key=JSON.stringify(parts.map(a=>[a.image,a.x,a.y,a.width,a.height]));
   if(key!==homeGroundKey){homeGroundKey=key;Promise.all(parts.map(async part=>{const b=await alphaBounds(part.image);return (part.y+part.height*(b.y+b.height))/100})).then(bottoms=>{if(key!==homeGroundKey)return;hero.dataset.homeGroundingFraction=Math.max(1350/1448,...bottoms);updateBubble()})}
+  // Cache the non-pet silhouette for the local home aura only; never move layers.
+  const base=hero.querySelector('.doll-base'),bodyParts=dollCategories.filter(c=>c.id!=='pets').map(c=>doll().assets.find(a=>a.id===doll().equipped[c.id]&&doll().unlocked.includes(a.id))).filter(Boolean).flatMap(dollVisualLayers),bodyKey=JSON.stringify([base.src,base.style.height,base.style.clipPath,...bodyParts.map(a=>[a.image,a.x,a.y,a.width,a.height])]);
+  if(bodyKey!==homeBodyKey){homeBodyKey=bodyKey;const baseHeight=(parseFloat(base.style.height)||100)/100,clip=/([\d.]+)%/.exec(base.style.clipPath);Promise.all([alphaBounds(base.src).then(b=>({x:b.x,y:b.y*baseHeight,width:b.width,height:Math.max(0,Math.min(b.y+b.height,clip?1-Number(clip[1])/100:1)-b.y)*baseHeight})),...bodyParts.map(async part=>{const b=await alphaBounds(part.image);return {x:(part.x+part.width*b.x)/100,y:(part.y+part.height*b.y)/100,width:part.width*b.width/100,height:part.height*b.height/100}})]).then(rects=>{if(bodyKey!==homeBodyKey)return;const x=Math.min(...rects.map(r=>r.x)),y=Math.min(...rects.map(r=>r.y));hero.dataset.homeBodyBounds=JSON.stringify({x,y,width:Math.max(...rects.map(r=>r.x+r.width))-x,height:Math.max(...rects.map(r=>r.y+r.height))-y});hero.dispatchEvent(new Event('home-body-ready'))})}
   const stoneSource=state().builtInImages?.stone||assetUrl('stone.webp');if(stoneSource!==homeStoneSource){homeStoneSource=stoneSource;alphaBounds(stoneSource).then(b=>{if(stoneSource!==homeStoneSource)return;Q('#scene').style.setProperty('--home-stone-image-top',b.y);Q('#scene').style.setProperty('--home-stone-image-height',b.height)})}
   updateBubble();if(!state().avatar)QA('.portrait-hero,.mini-character').forEach(el=>{el.classList.add('paper-doll');composite(el)})}
  const alphaCache=new Map();let wardrobeRender=0,widthTimer;
