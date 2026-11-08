@@ -1,3 +1,4 @@
+import {questionType,enabledQuestionTypes,isCorrectAnswer} from './library-core.js';
 import {isBundledMedia} from './bundled-media.js';
 export const scenes = [
  {name:'微光森林',subtitle:'晨曦小徑',english:'THE WHISPERING WOODS',description:'聽見了嗎？森林正在等待你的故事。',theme:'forest'},
@@ -8,7 +9,7 @@ export const scenes = [
 ];
 export function stoneType(position){const n=((position%10)+10)%10;return n===3?'chance':n===7?'fate':'question'}
 export function windowStart(position){return Math.floor(position/7)*7}
-export function activeQuestions(state){const answered=new Set(state.answeredQuestionIds||[]);return state.questions.filter(q=>!(state.disabledFolders||[]).includes(q.folder||'')&&(state.repeatQuestions!==false||!answered.has(q.id)))}
+export function activeQuestions(state){const answered=new Set(state.answeredQuestionIds||[]);const types=enabledQuestionTypes(state);return state.questions.filter(q=>types.includes(questionType(q))&&!(state.disabledFolders||[]).includes(q.folder||'')&&(state.repeatQuestions!==false||!answered.has(q.id)))}
 export function readyPortal(state){return state.sceneAnswers>=state.sceneTarget}
 export function grantReward(state,amount){state.xp=Math.max(0,state.xp+amount);if(amount>0)grantStars(state,amount)}
 export function completeQuestion(state,questionId,random=Math.random){if(questionId){state.answeredQuestionIds??=[];if(!state.answeredQuestionIds.includes(questionId))state.answeredQuestionIds.push(questionId);}const oldLevel=Math.floor(state.xp/100);const {min,max}=answerRewardRange(state),roll=min===max?0:Number(random());const amount=min+Math.floor((Number.isFinite(roll)?Math.max(0,Math.min(.9999999999999999,roll)):0)*(max-min+1));state.lastAnswerReward=amount;grantReward(state,amount);state.sceneAnswers++;return {portalReady:readyPortal(state),leveled:Math.floor(state.xp/100)>oldLevel}}
@@ -38,3 +39,5 @@ export function getPendingChallenge(state){return state.questions?.find(q=>q.id=
 export function answerRewardRange(state){const valid=n=>Number.isInteger(n)&&n>=0&&n<=10000,min=valid(state.rewardMin)?state.rewardMin:25,max=valid(state.rewardMax)?state.rewardMax:25;return {min:Math.min(min,max),max:Math.max(min,max)}}
 
 export function normalizeThemeMode(value){return ['rose-quartz','ice-lake'].includes(value)?value:'obsidian'}
+
+export function completeAutomaticQuestion(state,id,answer,random=Math.random){const q=getPendingChallenge(state);if(!q||q.id!==id||!isCorrectAnswer(q,answer))return null;state.pendingChallengeId=null;return completeQuestion(state,id,random)}
