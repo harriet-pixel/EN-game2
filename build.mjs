@@ -12,6 +12,8 @@ const dollUI=(await readFile('doll-ui.js','utf8')).replace(/^import .*?;\n/gm,''
 let app=(await readFile('app.js','utf8')).replace(/^import .*?;\n/gm,'');
 const gems=(await readFile('gems.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const gemUI=(await readFile('gem-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
+const starsCore=(await readFile('stars-core.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
+const starsUI=(await readFile('stars-ui.js','utf8')).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
 const settingsUI=(await readFile('settings-ui.js','utf8')).replace(/^export /gm,'');
 const eventUI=(await readFile('event-ui.js','utf8')).replace(/^export /gm,'');
 const sceneUI=(await readFile('scene-ui.js','utf8')).replace(/^export /gm,'');
@@ -23,7 +25,7 @@ const imageFiles=(await readFile('image-files.js','utf8')).replace(/^export /gm,
 const audioFiles=(await readFile('audio-files.js','utf8')).replace(/^export /gm,'');
 const bundledMedia=(await readFile('bundled-media.js','utf8')).replace(/^export /gm,'');
 const presetBytes=await readFile('default-state.json');const presetVersion=createHash('sha256').update(presetBytes).digest('hex').slice(0,12);const coreVersions={};for(const file of ['forest.webp','stone.webp','base-body.webp','head.webp','portal.png'])coreVersions[file]=createHash('sha256').update(await readFile('assets/'+file)).digest('hex').slice(0,12);app=app.replace('const publishedAssetVersions={};','const publishedAssetVersions='+JSON.stringify(coreVersions)+';').replace("const publishedPresetVersion='dev';",'const publishedPresetVersion='+JSON.stringify(presetVersion)+';');
-const js=`(()=>{\n${bundledMedia}\n${audioFiles}\n${imageFiles}\n${dialogue}\n${dialogueUI}\n${backupFormat}\n${backupUI}\n${sceneUI}\n${eventUI}\n${settingsUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${paper}\n${dollUI}\n${app}\n})();`;
+const js=`(()=>{\n${bundledMedia}\n${audioFiles}\n${imageFiles}\n${dialogue}\n${dialogueUI}\n${backupFormat}\n${backupUI}\n${sceneUI}\n${eventUI}\n${settingsUI}\n${gems}\n${gemUI}\n${core}\n${libraryCore}\n${starsCore}\n${starsUI}\n${paper}\n${dollUI}\n${app}\n})();`;
 const hash=createHash('sha256').update(js).digest('hex').slice(0,12);
 const css=(await readFile('style.css','utf8'))+'\n'+(await readFile('fantasy.css','utf8'));const cssHash=createHash('sha256').update(css).digest('hex').slice(0,12);
 let html=await readFile('index.html','utf8');html=html.replace('<script type="module" src="app.js"></script>',`<script defer src="app.${hash}.js"></script>`).replace('<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="fantasy.css">',`<link rel="stylesheet" href="style.${cssHash}.css">`);
