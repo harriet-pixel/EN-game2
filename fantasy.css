@@ -1787,7 +1787,7 @@ dialog.home-dialog#image-viewer { width:calc(100vw - 40px) !important; height:ca
 #adventure .home-stars small { display:flex; gap:.35em; flex-wrap:wrap; }
 #adventure .home-stars #overview-today { display:inline; margin:0; }
 /* Home uses the shared wardrobe sidebar width at every breakpoint. */
-#adventure .home-stars #home-star-value, #adventure .home-stars .home-star-symbol { display:inline; font:inherit; }
+#adventure .home-stars #home-star-value, #adventure .home-stars #overview-today, #adventure .home-stars .home-star-symbol { display:inline; font:inherit; }
 dialog.home-dialog #answer-actions button { flex:0 0 auto; width:auto; }
 #adventure .player-hud { --dice-size:clamp(44px,calc(320px * var(--home-stage-scale) * var(--dice-scale,1)),132px); }
 dialog.home-dialog#portal-reward .reward-accessory-preview { max-width:180px; max-height:none; }
@@ -1838,7 +1838,7 @@ body.home-active > main { grid-column:2; grid-row:1; width:100%; margin:0; min-w
 }
 #adventure #level { color:transparent; filter:none; }
 body[data-appearance] #adventure .xp-track i, #adventure .overview-progress i { background:var(--home-rainbow); }
-#adventure .home-stars #home-star-value { background:none; color:var(--gold); }
+#adventure .home-stars #overview-today { background:none; color:var(--gold); }
 #adventure .home-portal-pill { width:max-content; max-width:calc(100% - 330px); padding:8px clamp(4px,1vw,16px); white-space:nowrap; font-size:calc(1rem * var(--font-scale,1) * var(--home-portal-fit,1)); line-height:1.4; }
 #adventure #path { left:3%; right:3%; gap:calc(7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); }
 #adventure #path .stone { flex:0 0 calc(100% / var(--home-stage-columns,8) - 7px * var(--home-stone-scale,1)); height:calc(64px * var(--home-stone-scale,1)); background-size:100% calc(64px / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); background-position:center calc(-64px * var(--home-stone-image-top,.2942) / var(--home-stone-image-height,.6174) * var(--home-stone-scale,1)); }
@@ -2293,3 +2293,7 @@ body[data-appearance] #settings-page .settings-voice-row button { padding:6px; m
 @media(max-width:900px) { #settings-page .settings-voice-options { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 #settings-page .settings-dialogue-advanced > summary { flex-wrap:nowrap; white-space:nowrap; }
 #settings-page .settings-voice-summary { flex:1; min-width:0; max-width:none; text-align:right; }
+
+/* Give scaled accessory glyphs their own column instead of a fixed 20px slot. */
+#settings-page #settings-accessories .accessory-drop-row { grid-template-columns:calc(2.5rem * var(--font-scale,1)) minmax(0,1fr) 64px; column-gap:12px; }
+#settings-page #settings-accessories .drop-category-icon { display:grid; place-items:center; min-width:0; line-height:1; }
