@@ -2129,3 +2129,7 @@ body[data-appearance] #library #folders .qbank-folder.active { color:var(--ink);
 body:has(#library:not(.hidden)) #image-viewer::backdrop { backdrop-filter:none; background:color-mix(in srgb,var(--bg) 72%,transparent); }
 
 #library.qbank-selecting .qbank-card:not(:has(.qbank-thumb)) .qbank-meta { padding-inline:30px; min-height:24px; }
+
+/* Keep wardrobe tabs connected so the library-style selection transition can run. */
+#wardrobe-view #doll-category-tabs button { transition:border-color 150ms,background-color 150ms,transform 150ms; }
+@media(prefers-reduced-motion:reduce) { #wardrobe-view #doll-category-tabs button { transition:none; } }
